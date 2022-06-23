@@ -2,13 +2,17 @@ const defaultTheme = require('./resources/public/node_modules/tailwindcss/defaul
 
 module.exports = {
   content: ["./resources/public/js/compiled/cljs-runtime/schnaq.academy.*.js"],
+  darkMode: "class",
   theme: {
     extend: {
       fontFamily: {
         sans: ["Poppins", ...defaultTheme.fontFamily.sans],
       },
       colors: {
-        "blue": "#1292ee",
+        "blue": {
+          DEFAULT: "#1292ee",
+          dark: "#052740",
+        }
       },
     },
   },
