@@ -3,10 +3,21 @@
             [goog.dom :as gdom]
             [reagent.core :as r]))
 
+(defn- header [title]
+  [:nav.flex.items-center.justify-between.bg-blue.p-6.text-white
+   [:div.flex.items-center.flex-no-shrink.mr-6
+    [:img.h-8.pr-2 {:src "https://s3.schnaq.com/schnaq-common/logos/schnaqqifant_white.svg"}]
+    [:span.font-semibold.text-xl.tracking-tight
+     title]]
+   [:a.p-3.bg-white.rounded-full {:href "https://schnaq.com"} "schnaq.com"]])
+
 (defn- main []
-  [:main.container.mx-auto.pt-5
-   [:h1.text-3xl "Welcome to your app"]
-   [:p "Foo"]])
+  [:<>
+   [header "schnaq academy"]
+   [:main.container.p-5
+    [:h1 "Welcome to the schnaq academy"]
+    [:p "Find here interesting resources on how to handle / use schnaq."]
+    [:h2 "Embedding schnaq (e.g. into a website, e-learning system (ILIAS, Moodle, ...))"]]])
 
 ;; -----------------------------------------------------------------------------
 

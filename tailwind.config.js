@@ -5,9 +5,14 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Inter var", ...defaultTheme.fontFamily.sans],
+        sans: ["Poppins", ...defaultTheme.fontFamily.sans],
+      },
+      colors: {
+        "blue": "#1292ee",
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require("./resources/public/node_modules/@tailwindcss/forms"),
+  ],
 }
