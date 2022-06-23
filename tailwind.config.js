@@ -14,5 +14,6 @@ module.exports = {
   },
   plugins: [
     require("./resources/public/node_modules/@tailwindcss/forms"),
+    require("./resources/public/node_modules/@tailwindcss/aspect-ratio"),
   ],
 }
