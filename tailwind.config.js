@@ -1,7 +1,7 @@
 const defaultTheme = require('./resources/public/node_modules/tailwindcss/defaultTheme')
 
 module.exports = {
-  content: ["./resources/public/js/compiled/cljs-runtime/playground.*.js"],
+  content: ["./resources/public/js/compiled/cljs-runtime/schnaq.academy.*.js"],
   theme: {
     extend: {
       fontFamily: {

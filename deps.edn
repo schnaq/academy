@@ -1,6 +1,7 @@
 {:paths ["src/main" "src/test" "resources"]
 
  :deps {binaryage/devtools {:mvn/version "1.0.6"}
+        day8.re-frame/http-fx {:mvn/version "0.2.4"}
         org.clojure/clojurescript {:mvn/version "1.11.54"}
         reagent/reagent {:mvn/version "1.1.1"}
         thheller/shadow-cljs {:mvn/version "2.19.1"}}}

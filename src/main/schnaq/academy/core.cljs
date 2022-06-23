@@ -17,7 +17,8 @@
 
 (defn iframe-embedding []
   [:<>
-   [:h2 "Embedding schnaq (e.g. into a website, e-learning system (ILIAS, Moodle, ...))"]
+   [:h2 "schnaq einbetten"]
+   [:p "schnaq kann in beliebige Web-Seiten und E-Learningsysteme eingebettet werden. Hier kannst du dir ein Code-Snippet erstellen, den du dann verwenden kannst, um schnaq in deinem E-Learning System oder auf deiner Webseite einzubinden."]
    [:div {:style {:position :relative :overflow :hidden :width "100%" :padding-top "500px"}}
     [:iframe
      {:style {:position :absolute :width "100%" :height "100%" :top 0 :bottom 0 :left 0 :right 0}
@@ -29,9 +30,9 @@
 (defn- main []
   [:<>
    [header "schnaq academy"]
-   [:main.container.p-5
-    [:h1 "Welcome to the schnaq academy"]
-    [:p "Find here interesting resources on how to handle / use schnaq."]
+   [:main.container.mx-auto.px-3.pt-3
+    [:h1 "Willkommen in der schnaq academy"]
+    [:p "Finde hier Anleitungen, Beispiele und Konfigurationen, wie du schnaq für dich verwenden kannst."]
     [iframe-embedding]]])
 
 ;; -----------------------------------------------------------------------------
