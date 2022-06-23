@@ -3,7 +3,7 @@
  :js-options {:js-package-dirs ["resources/public/node_modules"]}
  :builds {:app
           {:target :browser
-           :modules {:main {:init-fn playground.core/init}}
+           :modules {:main {:init-fn schnaq.academy.core/init}}
            :output-dir "resources/public/js/compiled"
            :asset-path "/js/compiled"
            :devtools {:preloads [devtools.preload]}}}}

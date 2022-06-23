@@ -1,9 +1,11 @@
-(ns playground.core
+(ns schnaq.academy.corecore
   (:require ["react-dom/client" :refer [createRoot]]
             [goog.dom :as gdom]
             [reagent.core :as r]))
 
-(defn- header [title]
+(defn- header
+  "Define the academy header."
+  [title]
   [:nav.flex.items-center.justify-between.bg-blue.p-6.text-white
    [:div.flex.items-center.flex-no-shrink.mr-6
     [:img.h-8.pr-2 {:src "https://s3.schnaq.com/schnaq-common/logos/schnaqqifant_white.svg"}]
