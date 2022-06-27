@@ -1,0 +1,49 @@
+stages:
+  - build
+  - test
+  - build-docker-images
+  - deploy
+
+cache:
+  key: one-key-to-rule-them-all
+  paths:
+    - ./.m2/repository
+    - ./resources/public/node_modules
+
+variables:
+  IMAGE_TAGGED: $CI_REGISTRY_IMAGE:$CI_PIPELINE_IID
+
+# ------------------------------------------------------------------------------
+
+lint:
+  image: clojure:openjdk-17-tools-deps-slim-bullseye
+  script:
+    - clojure -Sdeps '{:mvn/local-repo "./.m2/repository"}' -A:clj-kondo --lint src
+  allow_failure: true
+  when: always
+
+up-to-date?:
+  image: clojure:openjdk-17-tools-deps-slim-bullseye
+  script:
+    - clojure -Sdeps '{:mvn/local-repo "./.m2/repository"}' -A:outdated
+  allow_failure: true
+  when: always
+
+# ------------------------------------------------------------------------------
+
+build-image:
+  image: docker
+  tags:
+    - ht
+  services:
+    - docker:dind
+  stage: build-docker-images
+  script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - >
+      docker build -f Dockerfile.frontend --pull
+      -t $IMAGE_TAGGED .
+    - docker push $IMAGE_TAGGED
+    - docker push $CI_REGISTRY_IMAGE:latest
+  only:
+    - main

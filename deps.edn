@@ -14,4 +14,12 @@
                      day8.re-frame/test {:mvn/version "0.1.5"}}
         :main-opts ["-m" "shadow.cljs.devtools.cli"
                     "watch" ":app"]
-        :jvm-opts ["-Dguardrails.enabled=true"]}}}
+        :jvm-opts ["-Dguardrails.enabled=true"]}
+
+  :outdated {:extra-deps {com.github.liquidz/antq {:mvn/version "RELEASE"}}
+             :main-opts ["-m" "antq.core"
+                         "--exclude=clj-kondo/tools"]}
+
+  :clj-kondo {:extra-deps {clj-kondo/clj-kondo {:mvn/version "RELEASE"}}
+              :jvm-opts ["-Dguardrails.enabled=true"]
+              :main-opts ["-m" "clj-kondo.main"]}}}
