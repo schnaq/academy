@@ -3,13 +3,10 @@
   (:require ["prettier/parser-html" :as parserHtml]
             ["prettier/standalone" :as prettier]
             ["react-highlight$default" :as Highlight]
-            [cljs.spec.alpha :as s]
             [goog.string :refer [format]]
             [oops.core :refer [oget]]
             [re-frame.core :as rf]
-            [reagent.dom.server :refer [render-to-string]]
-            [schnaq.academy.config :as config]
-            [schnaq.academy.specs :as specs]))
+            [reagent.dom.server :refer [render-to-string]]))
 
 (defn- component->pretty-string
   "Takes a component, converts to a string and prettifies it."
@@ -24,14 +21,6 @@
  :iframe/configuration
  (fn [db [_ field value]]
    (assoc-in db [:iframe field] value)))
-
-(rf/reg-sub
- :iframe/share-hash
- (fn [db]
-   (let [share-hash (get-in db [:iframe :share-hash])]
-     (if (and share-hash (s/valid? ::specs/share-hash share-hash))
-       share-hash
-       config/default-share-hash))))
 
 (rf/reg-sub
  :iframe/language
@@ -52,19 +41,13 @@
      :src (format "https://schnaq.com/%s/schnaq/%s" language share-hash)}]])
 
 (defn iframe-embedding []
-  (let [share-hash @(rf/subscribe [:iframe/share-hash])
+  (let [share-hash @(rf/subscribe [:academy/share-hash])
         language @(rf/subscribe [:iframe/language])
         height @(rf/subscribe [:iframe/height])]
     [:<>
      [:h2 "schnaq einbetten"]
      [:p "schnaq kann in beliebige Web-Seiten und E-Learningsysteme eingebettet werden. Hier kannst du dir ein Code-Snippet erstellen, den du dann verwenden kannst, um schnaq in deinem E-Learning System oder auf deiner Webseite einzubinden."]
      [:section.grid.grid-cols-3.gap-4.pt-3.mb-5
-      [:label
-       [:span "Füge hier den share-hash zu deinem schnaq ein. Das ist die lange Zahlenfolge aus deiner Browserzeile."]
-       [:input#iframe-share-hash.input
-        {:type :text
-         :on-change #(rf/dispatch [:iframe/configuration :share-hash (oget % [:target :value])])
-         :placeholder share-hash}]]
       [:label
        [:span "Stelle die Sprache ein."]
        [:select#iframe-language.input
@@ -77,6 +60,7 @@
        [:input#iframe-height.input
         {:type :number
          :value height
+         :step 10
          :on-change #(rf/dispatch [:iframe/configuration :height (oget % [:target :value])])}]]]
      [:h3 "Code zum Einbetten"]
      [:> Highlight {:class "language-html"}
