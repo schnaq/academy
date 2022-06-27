@@ -44,6 +44,7 @@ build-image:
       docker build -f Dockerfile --pull
       -t $IMAGE_TAGGED .
     - docker push $IMAGE_TAGGED
+    - docker tag $IMAGE_TAGGED $CI_REGISTRY_IMAGE:latest
     - docker push $CI_REGISTRY_IMAGE:latest
   only:
     - main
