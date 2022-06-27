@@ -20,8 +20,8 @@ RUN clojure -P -M:frontend
 
 COPY . .
 
-RUN yarn tailwind:production
 RUN yarn shadow-cljs release app
+RUN yarn tailwind:production
 
 # ------------------------------------------------------------------------------
 
