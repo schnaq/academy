@@ -11,7 +11,7 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
 # Cache and install JavaScript dependencies
 COPY package.json .
 COPY yarn.lock .
-COPY resources/public/node_modules/ resources/public/node_modules/
+# COPY resources/public/node_modules/ resources/public/node_modules/
 RUN yarn install
 
 COPY deps.edn .
