@@ -8,5 +8,7 @@
            :asset-path "/js/compiled"
            :devtools {:preloads [devtools.preload day8.re-frame-10x.preload]}
            :dev {:compiler-options {:closure-defines {re-frame.trace.trace-enabled? true
-                                                      day8.re-frame.tracing.trace-enabled? true}}}
-           :release {:build-options {:ns-aliases {day8.re-frame.tracing day8.re-frame.tracing-stubs}}}}}}
+                                                      day8.re-frame.tracing.trace-enabled? true}}
+                 :external-config {:guardrails {}}}
+           :release {:build-options {:ns-aliases {com.fulcrologic.guardrails.core com.fulcrologic.guardrails.noop
+                                                  day8.re-frame.tracing day8.re-frame.tracing-stubs}}}}}}
