@@ -37,7 +37,7 @@
     [:<>
      [:h2 "schnaq einbetten"]
      [:p "schnaq kann in beliebige Web-Seiten und E-Learningsysteme eingebettet werden. Hier kannst du dir ein Code-Snippet erstellen, den du dann verwenden kannst, um schnaq in deinem E-Learning System oder auf deiner Webseite einzubinden."]
-     [:section.grid.grid-cols-3.gap-4.pt-3.mb-5
+     [:section.grid.md:grid-cols-3.gap-4.pt-3.mb-5
       [:label
        [:span "Stelle die Sprache ein."]
        [:select#iframe-language.input
