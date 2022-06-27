@@ -43,8 +43,8 @@
        [:select#iframe-language.input
         {:type :text
          :on-change #(rf/dispatch [:iframe/configuration :language (oget % [:target :value])])}
-        [:option {:value "de" :selected (= language "de")} "de"]
-        [:option {:value "en" :selected (= language "en")} "en"]]]
+        [:option {:value "de" :defaultValue (= language "de")} "de"]
+        [:option {:value "en" :defaultValue (= language "en")} "en"]]]
       [:label
        [:span "Höhe des schnaqs in Pixeln."]
        [:input#iframe-height.input
@@ -52,7 +52,7 @@
          :value height
          :step 10
          :on-change #(rf/dispatch [:iframe/configuration :height (oget % [:target :value])])}]]]
-     [:h3 "Code zum Einbetten"]
+     [:h3 "Code"]
      [:p "Kopiere den Code in deine Webanwendung, um den schnaq wie unten angegeben in deine Website einzubetten."]
      [:> Highlight {:class "language-html"} html]
      [:button {:on-click #(utils/copy-to-clipboard! html)} "Code kopieren"]
