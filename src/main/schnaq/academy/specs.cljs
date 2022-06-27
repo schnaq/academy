@@ -5,3 +5,5 @@
 (s/def ::share-hash
   (s/and #(.includes % "-")
          #(= (count config/default-share-hash) (.-length %))))
+
+(s/def :re-frame/component vector?)

@@ -1,21 +1,10 @@
 (ns schnaq.academy.lectures.iframe
   "Describe iframe embeddings."
-  (:require ["prettier/parser-html" :as parserHtml]
-            ["prettier/standalone" :as prettier]
-            ["react-highlight$default" :as Highlight]
+  (:require ["react-highlight$default" :as Highlight]
             [goog.string :refer [format]]
             [oops.core :refer [oget]]
             [re-frame.core :as rf]
-            [reagent.dom.server :refer [render-to-string]]))
-
-(defn- component->pretty-string
-  "Takes a component, converts to a string and prettifies it."
-  [component]
-  (.replaceAll
-   (.format prettier (render-to-string component)
-            #js {:parser "html"
-                 :plugins #js [parserHtml]})
-   ";" "; "))
+            [schnaq.academy.utils :as utils]))
 
 (rf/reg-event-db
  :iframe/configuration
@@ -63,7 +52,8 @@
          :step 10
          :on-change #(rf/dispatch [:iframe/configuration :height (oget % [:target :value])])}]]]
      [:h3 "Code zum Einbetten"]
+     [:p "Kopiere den Code in deine Webanwendung, um den schnaq wie unten angegeben in deine Website einzubetten."]
      [:> Highlight {:class "language-html"}
-      (component->pretty-string [embedding share-hash language height])]
+      (utils/component->pretty-html [embedding share-hash language height])]
      [:h3 "Vorschau"]
      [embedding share-hash language height]]))
