@@ -23,7 +23,8 @@
    [:div.ml-auto]
    [:> SunIcon {:class "h-7 my-auto pr-3 cursor-pointer"
                 :on-click #(rf/dispatch [:dark/toggle])}]
-   [:a.p-3.bg-white.rounded-full {:href "https://schnaq.com"} "schnaq.com"]])
+   [:a.p-3.bg-white.rounded-full.text-blue.dark:text-blue-dark
+    {:href "https://schnaq.com"} "schnaq.com"]])
 
 (rf/reg-event-fx
  :dark/toggle

@@ -32,7 +32,8 @@
 (defn iframe-embedding []
   (let [share-hash @(rf/subscribe [:academy/share-hash])
         language @(rf/subscribe [:iframe/language])
-        height @(rf/subscribe [:iframe/height])]
+        height @(rf/subscribe [:iframe/height])
+        html (utils/component->pretty-html [embedding share-hash language height])]
     [:<>
      [:h2 "schnaq einbetten"]
      [:p "schnaq kann in beliebige Web-Seiten und E-Learningsysteme eingebettet werden. Hier kannst du dir ein Code-Snippet erstellen, den du dann verwenden kannst, um schnaq in deinem E-Learning System oder auf deiner Webseite einzubinden."]
@@ -53,7 +54,7 @@
          :on-change #(rf/dispatch [:iframe/configuration :height (oget % [:target :value])])}]]]
      [:h3 "Code zum Einbetten"]
      [:p "Kopiere den Code in deine Webanwendung, um den schnaq wie unten angegeben in deine Website einzubetten."]
-     [:> Highlight {:class "language-html"}
-      (utils/component->pretty-html [embedding share-hash language height])]
+     [:> Highlight {:class "language-html"} html]
+     [:button {:on-click #(utils/copy-to-clipboard! html)} "Code kopieren"]
      [:h3 "Vorschau"]
      [embedding share-hash language height]]))

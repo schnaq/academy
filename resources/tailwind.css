@@ -2,13 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Custom Variables */
-:root {
-  --primary-color: rgba(255, 230, 0, 1);
-}
-
 @layer base {
-
   h1 {
     @apply text-3xl;
   }
@@ -29,10 +23,10 @@
     @apply pt-3 pb-1;
   }
 
-  a {
-    @apply text-blue dark:text-blue-dark;
+  a, button {
+    @apply text-blue dark:text-white rounded-full outline p-2 my-2;
   }
-  a:hover {
+  a:hover, button:hover {
     @apply underline;
   }
 
