@@ -76,9 +76,10 @@
   []
   (.render root (r/as-element [main])))
 
-(defn- ^:dev/after-load re-render
+(defn- ^:dev/after-load clear-cache-and-render!
   "The `:dev/after-load` metadata causes this function to be called after
   shadow-cljs hot-reloads code. This function is called implicitly by its
   annotation."
   []
+  (rf/clear-subscription-cache!)
   (init))
