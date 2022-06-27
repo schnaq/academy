@@ -3,6 +3,7 @@
  :deps {binaryage/oops {:mvn/version "0.7.2"}
         com.fulcrologic/guardrails {:mvn/version "1.1.11"}
         day8.re-frame/http-fx {:mvn/version "0.2.4"}
+        funcool/hodgepodge {:mvn/version "0.1.4"}
         org.clojure/clojurescript {:mvn/version "1.11.60"}
         reagent/reagent {:mvn/version "1.1.1"}
         re-frame/re-frame {:mvn/version "1.2.0"}

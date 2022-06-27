@@ -3,6 +3,10 @@
             ["prettier/standalone" :as prettier]
             [cljs.spec.alpha :as s]
             [com.fulcrologic.guardrails.core :refer [=> >defn]]
+            [goog.dom :as gdom]
+            [goog.dom.classlist :as gdomcl]
+            [hodgepodge.core :refer [local-storage]]
+            [re-frame.core :as rf]
             [reagent.dom.server :refer [render-to-string]]))
 
 (>defn copy-to-clipboard!
@@ -24,3 +28,45 @@
                #js {:parser "html"
                     :plugins #js [parserHtml]})
       (.replaceAll ";" "; ")))
+
+(defn- dark-mode?
+  "Check if dark-mode is configured by the user."
+  []
+  (or (:dark-mode? local-storage)
+      (and (nil? (:dark-mode? local-storage))
+           (.-matches (.matchMedia js/window "(prefers-color-scheme: dark)")))))
+
+(rf/reg-sub
+ :dark-mode?
+ (fn [{:keys [db]}]
+   (get db :dark-mode? (dark-mode?))))
+
+(rf/reg-event-fx
+ :dark-mode/toggle
+ (fn [{:keys [db]} _]
+   {:db (assoc db :dark-mode? (not (dark-mode?)))
+    :fx [[:localstorage/assoc [:dark-mode? (not (dark-mode?))]]
+         [:dark-mode/init!]]}))
+
+(rf/reg-event-fx
+ :dark-mode/init
+ (fn [{:keys [db]} _]
+   {:db (assoc db :dark-mode? (dark-mode?))
+    :fx [[:dark-mode/init!]]}))
+
+(rf/reg-fx
+ :dark-mode/init!
+ (fn []
+   (if (dark-mode?)
+     (gdomcl/add (gdom/getElement "main") "dark")
+     (gdomcl/remove (gdom/getElement "main") "dark"))))
+
+(rf/reg-fx
+ :localstorage/assoc
+ (fn [[key value]]
+   (assoc! local-storage key value)))
+
+(rf/reg-fx
+ :localstorage/dissoc
+ (fn [key]
+   (dissoc! local-storage key)))
