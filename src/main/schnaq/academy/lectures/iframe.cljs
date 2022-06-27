@@ -1,6 +1,7 @@
 (ns schnaq.academy.lectures.iframe
   "Describe iframe embeddings."
-  (:require ["react-highlight$default" :as Highlight]
+  (:require ["react-syntax-highlighter" :refer [Prism]]
+            ["react-syntax-highlighter/dist/esm/styles/prism" :refer [github darcula]]
             [goog.string :refer [format]]
             [oops.core :refer [oget]]
             [re-frame.core :as rf]
@@ -33,6 +34,7 @@
   (let [share-hash @(rf/subscribe [:academy/share-hash])
         language @(rf/subscribe [:iframe/language])
         height @(rf/subscribe [:iframe/height])
+        dark-mode? @(rf/subscribe [:dark-mode?])
         html (utils/component->pretty-html [embedding share-hash language height])]
     [:<>
      [:h2 "schnaq einbetten"]
@@ -54,7 +56,8 @@
          :on-change #(rf/dispatch [:iframe/configuration :height (oget % [:target :value])])}]]]
      [:h3 "Code"]
      [:p "Kopiere den Code in deine Webanwendung, um den schnaq wie unten angegeben in deine Website einzubetten."]
-     [:> Highlight {:class "language-html"} html]
+     [:> Prism {:language "html" :style (if dark-mode? darcula github)}
+      html]
      [:button {:on-click #(utils/copy-to-clipboard! html)} "Code kopieren"]
      [:h3 "Vorschau"]
      [embedding share-hash language height]]))
