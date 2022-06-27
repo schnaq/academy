@@ -1,0 +1,7 @@
+.git/
+target/
+.cpcache/
+.clj-kondo/
+.idea/
+.shadow-cljs/
+out/
