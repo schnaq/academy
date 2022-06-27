@@ -5,6 +5,7 @@
   "scripts": {
     "shadow:watch": "yarn shadow-cljs watch frontend",
     "tailwind:watch": "yarn tailwindcss -i ./resources/tailwind.css -o ./resources/public/css/compiled.css --watch",
+    "tailwind:production": "yarn tailwindcss -i ./resources/tailwind.css -o ./resources/public/css/compiled.css --minify",
     "dev": "yarn run-p -l *:watch"
   },
   "devDependencies": {
