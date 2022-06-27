@@ -1,7 +1,8 @@
 const defaultTheme = require('./resources/public/node_modules/tailwindcss/defaultTheme')
 
 module.exports = {
-  content: ["./resources/public/js/compiled/cljs-runtime/schnaq.academy.*.js"],
+  content: ["./resources/public/js/compiled/cljs-runtime/schnaq.academy.*.js",
+            "./resources/public/js/compiled/main.js"],
   darkMode: "class",
   theme: {
     extend: {

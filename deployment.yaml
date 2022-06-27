@@ -51,7 +51,7 @@ metadata:
   namespace: schnaq-academy
   annotations:
     nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
-    cert-manager.io/cluster-issuer: "letsencrypt-staging"
+    cert-manager.io/cluster-issuer: "letsencrypt-production"
 spec:
   tls:
     - hosts:
