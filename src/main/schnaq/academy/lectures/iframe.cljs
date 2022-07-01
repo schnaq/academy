@@ -13,29 +13,25 @@
    (assoc-in db [:iframe field] value)))
 
 (rf/reg-sub
- :iframe/language
- (fn [db]
-   (get-in db [:iframe :language] "de")))
-
-(rf/reg-sub
- :iframe/height
- (fn [db]
-   (get-in db [:iframe :height] 550)))
+ :iframe/configuration
+ (fn [db [_ field fallback]]
+   (get-in db [:iframe field] fallback)))
 
 ;; -----------------------------------------------------------------------------
 
-(defn- embedding [share-hash language height]
+(defn- embedding [share-hash language height num-rows]
   [:div {:style {:position :relative :overflow :hidden :width "100%" :padding-top (format "%dpx" height)}}
    [:iframe
     {:style {:position :absolute :width "100%" :height "100%" :top 0 :bottom 0 :left 0 :right 0}
-     :src (format "https://schnaq.com/%s/schnaq/%s" language share-hash)}]])
+     :src (format "http://localhost:8700/%s/schnaq/%s" language share-hash)}]])
 
 (defn iframe-embedding []
   (let [share-hash @(rf/subscribe [:academy/share-hash])
-        language @(rf/subscribe [:iframe/language])
-        height @(rf/subscribe [:iframe/height])
+        language @(rf/subscribe [:iframe/configuration :language "de"])
+        height @(rf/subscribe [:iframe/configuration :height 550])
+        num-rows @(rf/subscribe [:iframe/configuration :num-rows 2])
         dark-mode? @(rf/subscribe [:dark-mode?])
-        html (utils/component->pretty-html [embedding share-hash language height])]
+        html (utils/component->pretty-html [embedding share-hash language height num-rows])]
     [:<>
      [:h2 "schnaq einbetten"]
      [:p "schnaq kann in beliebige Web-Seiten und E-Learningsysteme eingebettet werden. Hier kannst du dir ein Code-Snippet erstellen, den du dann verwenden kannst, um schnaq in deinem E-Learning System oder auf deiner Webseite einzubinden."]
@@ -53,11 +49,17 @@
         {:type :number
          :value height
          :step 10
-         :on-change #(rf/dispatch [:iframe/configuration :height (oget % [:target :value])])}]]]
+         :on-change #(rf/dispatch [:iframe/configuration :height (oget % [:target :value])])}]]
+      [:label
+       [:span "Anzahl der Spalten auf großen Bildschirmen"]
+       [:input#iframe-num-rows.input
+        {:type :number
+         :value num-rows
+         :on-change #(rf/dispatch [:iframe/configuration :num-rows (oget % [:target :value])])}]]]
      [:h3 "Code"]
      [:p "Kopiere den Code in deine Webanwendung, um den schnaq wie unten angegeben in deine Website einzubetten."]
      [:> Prism {:language "html" :style (if dark-mode? darcula github)}
       html]
      [:button {:on-click #(utils/copy-to-clipboard! html)} "Code kopieren"]
      [:h3 "Vorschau"]
-     [embedding share-hash language height]]))
+     #_[embedding share-hash language height]]))
