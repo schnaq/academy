@@ -5,9 +5,16 @@
             [com.fulcrologic.guardrails.core :refer [=> >defn]]
             [goog.dom :as gdom]
             [goog.dom.classlist :as gdomcl]
+            [goog.uri.utils :as uri]
             [hodgepodge.core :refer [local-storage]]
             [re-frame.core :as rf]
             [reagent.dom.server :refer [render-to-string]]))
+
+(>defn build-uri-with-query-params
+  "Takes a URL and adds the parameters as query parameters."
+  [url params]
+  [string? coll? => string?]
+  (uri/appendParamsFromMap url (clj->js params)))
 
 (>defn copy-to-clipboard!
   "Copies a string to the users clipboard."
