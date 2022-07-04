@@ -38,8 +38,12 @@
     @apply rounded-lg bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue focus:border-blue block w-full p-2.5 dark:bg-gray-700 dark:border-gray-400 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue dark:focus:border-blue duration-300;
   }
 
+  [type="checkbox"] {
+    @apply text-blue mr-1;
+  }
+
   label span {
-    @apply block text-gray-700 text-sm mb-2 dark:text-gray-100 font-medium;
+    @apply block text-gray-700 text-sm dark:text-gray-100 font-medium;
   }
 
   @font-face {
