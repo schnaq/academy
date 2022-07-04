@@ -8,4 +8,12 @@
 
 (def default-share-hash
   "Point to a default schnaq. In this case the FAQ production schnaq."
-  "e8f54922-0d88-4953-8f43-ddc819d7f201")
+  "120900da-912e-422b-8ab2-19983cb63cd8")
+
+;; -----------------------------------------------------------------------------
+
+(def default-iframe-height
+  "In pixels."
+  550)
+
+(def default-language "de")
