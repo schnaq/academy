@@ -2,6 +2,7 @@
   (:require ["prettier/parser-html" :as parserHtml]
             ["prettier/standalone" :as prettier]
             [cljs.spec.alpha :as s]
+            [clojure.string :as str]
             [com.fulcrologic.guardrails.core :refer [=> >defn]]
             [goog.dom :as gdom]
             [goog.dom.classlist :as gdomcl]
@@ -13,7 +14,7 @@
 (>defn build-uri-with-query-params
   "Takes a URL and adds the parameters as query parameters."
   [url params]
-  [string? coll? => string?]
+  [string? map? => string?]
   (uri/appendParamsFromMap url (clj->js params)))
 
 (>defn copy-to-clipboard!
@@ -34,7 +35,14 @@
   (-> (.format prettier (render-to-string component)
                #js {:parser "html"
                     :plugins #js [parserHtml]})
+      (.replaceAll "&amp;" "&")
       (.replaceAll ";" "; ")))
+
+(>defn remove-falsy
+  "Removes all entries from a map that have falsy values."
+  [data]
+  [associative? :ret associative?]
+  (into {} (remove #(not (second %)) data)))
 
 (defn- dark-mode?
   "Check if dark-mode is configured by the user."
