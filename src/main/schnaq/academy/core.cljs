@@ -28,6 +28,17 @@
      [:a.p-3.bg-white.rounded-full.text-blue.dark:text-blue-dark
       {:href "https://schnaq.com"} "schnaq.com"]]))
 
+(defn- footer
+  "Define the academy footer."
+  [title]
+  [:nav.flex.bg-blue-dark.p-6.text-white.mt-5
+   [:div.flex.items-center.flex-no-shrink.mr-6
+    [:img.h-8.pr-2 {:src "https://s3.schnaq.com/schnaq-common/logos/schnaqqifant_white.svg"}]
+    [:span.font-semibold.text-xl.tracking-tight title]]
+   [:div.ml-auto]
+   [:a.text-white.mr-3 {:target :_blank :href "https://schnaq.com/de/legal-note"} "Impressum"]
+   [:a.text-white {:target :_blank :href "https://schnaq.com/de/privacy"} "Datenschutz"]])
+
 ;; -----------------------------------------------------------------------------
 
 (rf/reg-sub
@@ -47,7 +58,7 @@
   (let [share-hash @(rf/subscribe [:academy/share-hash])]
     [:main#main
      [:div.dark:bg-gray-700.dark:text-white
-      [header "schnaq academy"]
+      [header config/application-name]
       [:div.container.mx-auto.px-3.pt-3
        [:h1 "Willkommen in der schnaq academy"]
        [:p "Finde hier Anleitungen, Beispiele und Konfigurationen, wie du schnaq für dich verwenden kannst."]
@@ -58,7 +69,8 @@
           {:type :text
            :on-change #(rf/dispatch [:academy/share-hash (oget % [:target :value])])
            :placeholder share-hash}]]]
-       [iframe-embedding]]]]))
+       [iframe-embedding]]
+      [footer config/application-name]]]))
 
 ;; -----------------------------------------------------------------------------
 
