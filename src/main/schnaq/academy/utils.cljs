@@ -1,8 +1,10 @@
 (ns schnaq.academy.utils
   (:require ["prettier/parser-html" :as parserHtml]
             ["prettier/standalone" :as prettier]
+            ["react-syntax-highlighter" :refer [Prism]]
+            ["react-syntax-highlighter/dist/esm/styles/prism" :refer [darcula
+                                                                      github]]
             [cljs.spec.alpha :as s]
-            [clojure.string :as str]
             [com.fulcrologic.guardrails.core :refer [=> >defn]]
             [goog.dom :as gdom]
             [goog.dom.classlist :as gdomcl]
@@ -44,12 +46,21 @@
   [associative? :ret associative?]
   (into {} (remove #(not (second %)) data)))
 
+(defn highlight-code
+  "Highlight the provided code and provide buttons to copy the content."
+  [{:keys [language]} code]
+  (let [dark-mode? @(rf/subscribe [:dark-mode?])]
+    [:> Prism {:language language :style (if dark-mode? darcula github)}
+     code]))
+
 (defn- dark-mode?
   "Check if dark-mode is configured by the user."
   []
   (or (:dark-mode? local-storage)
       (and (nil? (:dark-mode? local-storage))
            (.-matches (.matchMedia js/window "(prefers-color-scheme: dark)")))))
+
+;; -----------------------------------------------------------------------------
 
 (rf/reg-sub
  :dark-mode?

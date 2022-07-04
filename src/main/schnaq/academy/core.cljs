@@ -8,7 +8,7 @@
             [re-frame.core :as rf]
             [reagent.core :as r]
             [schnaq.academy.config :as config]
-            [schnaq.academy.lectures.iframe :refer [iframe-embedding]]
+            [schnaq.academy.lectures.iframe :refer [ui-settings]]
             [schnaq.academy.specs :as specs]
             [schnaq.academy.utils]))
 
@@ -69,7 +69,7 @@
           {:type :text
            :on-change #(rf/dispatch [:academy/share-hash (oget % [:target :value])])
            :placeholder share-hash}]]]
-       [iframe-embedding]]
+       [ui-settings]]
       [footer config/application-name]]]))
 
 ;; -----------------------------------------------------------------------------
