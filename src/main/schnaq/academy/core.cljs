@@ -4,7 +4,7 @@
             [goog.string.format] ;; required for goog.string. We need to require it once in our project.
             [re-frame.core :as rf]
             [reagent.core :as r]
-            [schnaq.academy.base :as base]
+            [schnaq.academy.pages.base :as base]
             [schnaq.academy.routes :as routes]
             [schnaq.academy.utils]))
 

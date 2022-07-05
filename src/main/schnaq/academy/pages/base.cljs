@@ -1,4 +1,4 @@
-(ns schnaq.academy.base
+(ns schnaq.academy.pages.base
   (:require ["@heroicons/react/solid" :refer [SunIcon MoonIcon]]
             [cljs.spec.alpha :as s]
             [re-frame.core :as rf]

@@ -1,7 +1,7 @@
 (ns schnaq.academy.pages.index
   (:require [oops.core :refer [oget]]
             [re-frame.core :as rf]
-            [schnaq.academy.base :refer [base]]
+            [schnaq.academy.pages.base :refer [base]]
             [schnaq.academy.pages.settings :refer [ui-settings]]))
 
 (defn- index-page []
