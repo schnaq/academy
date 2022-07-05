@@ -19,7 +19,7 @@ pom.xml.asc
 .hgignore
 .hg/
 
-.clj-kondo/
+.cache/
 .lsp/
 .shadow-cljs/
 .cpcache/

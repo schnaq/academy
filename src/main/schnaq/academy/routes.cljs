@@ -4,15 +4,15 @@
             [reitit.frontend :as reitit-frontend]
             [reitit.frontend.controllers :as rfc]
             [reitit.frontend.easy :as rfe]
-            [schnaq.academy.base :as base]))
+            [schnaq.academy.base :as base]
+            [schnaq.academy.specs]))
 
 (def routes
-  ["/" {:controllers [{:start #(rf/dispatch [:init])}]}
-   ["" {:name :routes/start
-        :views base/index}]])
+  ["" {:controllers [{:start #(rf/dispatch [:init])}]}
+   ["/" {:name :routes/start
+         :views base/index}]])
 
 (defn on-navigate [new-match]
-  (prn "on-navigate")
   (when new-match
     (rf/dispatch [:routes/navigated new-match])))
 
