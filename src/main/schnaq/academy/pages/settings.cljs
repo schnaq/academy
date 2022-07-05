@@ -61,6 +61,15 @@
        :on-change #(rf/dispatch [:settings/field :hide-navbar (oget % [:target :checked])])}]
      [:span "Verstecke die Navigationsleiste."]]))
 
+(defn- hide-footer-input []
+  (let [hide-footer @(rf/subscribe [:settings/field :hide-footer])]
+    [:label.inline-flex.items-center
+     [:input
+      {:type :checkbox
+       :value hide-footer
+       :on-change #(rf/dispatch [:settings/field :hide-footer (oget % [:target :checked])])}]
+     [:span "Verstecke Footer (Standard wenn in iFrame eingebunden)."]]))
+
 (defn hide-discussion-options-input []
   (let [hide-discussion-options @(rf/subscribe [:settings/field :hide-discussion-options])]
     [:label.inline-flex.items-center
@@ -86,7 +95,7 @@
       {:type :checkbox
        :value hide-input-replies
        :on-change #(rf/dispatch [:settings/field :hide-input-replies (oget % [:target :checked])])}]
-     [:span "Deaktiviere Antwortmöglichkeiten"]]))
+     [:span "Deaktiviere Antwortmöglichkeiten."]]))
 
 ;; -----------------------------------------------------------------------------
 
@@ -124,15 +133,15 @@
    [:h2 "Interface Einstellungen"]
    [:p "Um schnaq in verschiedene Web-Kontexte einzubinden (bspw. Websites, E-Learningplattformen, Powerpoint-Präsentationen, ...), kann das Interface angepasst werden. Hier können diese Einstellungen vorgenommen werden, um einen Code zu generieren, der dann in die entsprechenden Web-Bereiche verwendet zu werden."]
    [:p "Die Einstellungen sind interaktiv und finden nur bei dir im Browser statt. Wenn du den Zugangslink zu deinem schnaq hier eingibst, wird er nicht gespeichert und nur auf deinem Gerät weiterverarbeitet."]
-   [:section.grid.md:grid-cols-3.gap-4.pt-3.mb-5
+   [:section.grid.md:grid-cols-2.gap-4.pt-3.mb-5
     [language-input]
     [num-rows-input]
-    [:div]
     [:div
-     [hide-navbar-input]
-     [hide-discussion-options-input]
-     [hide-input-input]
-     [hide-input-replies-input]]]
+     [:div [hide-navbar-input]]
+     [:div [hide-footer-input]]
+     [:div [hide-discussion-options-input]]
+     [:div [hide-input-input]]
+     [:div [hide-input-replies-input]]]]
    [copy-link-button]
    [iframe-explanation]
    [:h3 "Vorschau"]
@@ -172,12 +181,14 @@
  :<- [:settings/field :num-rows]
  :<- [:settings/field :hide-discussion-options]
  :<- [:settings/field :hide-navbar]
+ :<- [:settings/field :hide-footer]
  :<- [:settings/field :hide-input]
  :<- [:settings/field :hide-input-replies]
- (fn [[share-hash host language num-rows hide-discussion-options hide-navbar hide-input hide-input-replies]]
+ (fn [[share-hash host language num-rows hide-discussion-options hide-navbar hide-footer hide-input hide-input-replies]]
    (let [query-parameters {:num-rows num-rows
                            :hide-discussion-options hide-discussion-options
                            :hide-navbar hide-navbar
+                           :hide-footer hide-footer
                            :hide-input hide-input
                            :hide-input-replies hide-input-replies}]
      (utils/build-uri-with-query-params

@@ -13,6 +13,7 @@
 
 (s/def :settings/hide-discussion-options boolean?)
 (s/def :settings/hide-navbar boolean?)
+(s/def :settings/hide-footer boolean?)
 (s/def :settings/hide-input boolean?)
 (s/def :settings/num-rows nat-int?)
 (s/def :settings/hide-input-replies boolean?)
@@ -20,6 +21,7 @@
 (s/def :settings/schnaq
   (s/keys :opt-un [:settings/hide-discussion-options
                    :settings/hide-navbar
+                   :settings/hide-footer
                    :settings/hide-input
                    :settings/num-rows
                    :settings/hide-input-replies]))
