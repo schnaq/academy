@@ -45,6 +45,14 @@
   label span {
     @apply text-gray-700 text-sm dark:text-gray-100 font-medium;
   }
+  
+  .header-link-external {
+    @apply p-3 bg-white rounded-full text-blue dark:text-blue-dark
+  }
+
+  .header-link {
+    @apply p-3 mr-3 text-white outline-none;
+  }
 
   @font-face {
     font-family: "Poppins";

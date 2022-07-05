@@ -146,7 +146,7 @@
    [copy-link-button]
    [iframe-explanation]
    [:h3 "Vorschau"]
-   [iframe]])
+   #_[iframe]])
 
 (defn settings []
   [base
@@ -158,6 +158,11 @@
  :settings/field
  (fn [db [_ field value]]
    (assoc-in db [:settings field] value)))
+
+(rf/reg-event-db
+ :settings.field/dissoc
+ (fn [db [_ field]]
+   (update db :settings dissoc field)))
 
 (rf/reg-sub
  :settings/field
@@ -223,4 +228,6 @@
      {:db (update db :settings merge (:query parameters))
       :fx [[:dispatch [:settings/share-hash share-hash]]
            [:dispatch [:settings/language language]]
-           [:dispatch [:settings/field :host host]]]})))
+           [:dispatch (if (seq host)
+                        [:settings/field :host host]
+                        [:settings.field/dissoc :host])]]})))

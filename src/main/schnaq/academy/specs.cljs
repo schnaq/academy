@@ -3,8 +3,6 @@
 
 (s/def :re-frame/component vector?)
 
-(s/def :discussion/language #{"de" "en"})
-
 ;; -----------------------------------------------------------------------------
 ;; Accepted arguments from schnaq via URL
 
@@ -12,6 +10,8 @@
   #"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
 
 (s/def :discussion/share-hash (s/and string? #(re-matches uuid-pattern %)))
+
+(s/def :discussion/language #{"de" "en"})
 
 (s/def :settings/hide-discussion-options boolean?)
 (s/def :settings/hide-navbar boolean?)

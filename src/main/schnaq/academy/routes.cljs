@@ -38,7 +38,7 @@
    (apply rfe/push-state route)))
 
 (rf/reg-event-fx
- :routes/push-state
+ :routes/navigate
  (fn [_ [_ & route]]
    {:push-state route}))
 
