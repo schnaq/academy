@@ -1,10 +1,5 @@
 (ns schnaq.academy.specs
-  (:require [cljs.spec.alpha :as s]
-            [schnaq.academy.config :as config]))
-
-(s/def ::share-hash
-  (s/and #(.includes % "-")
-         #(= (count config/default-share-hash) (.-length %))))
+  (:require [cljs.spec.alpha :as s]))
 
 (s/def :re-frame/component vector?)
 
@@ -16,15 +11,15 @@
 
 (s/def :discussion/share-hash (s/and string? #(re-matches uuid-pattern %)))
 
-(s/def :ui.settings/hide-discussion-options boolean?)
-(s/def :ui.settings/hide-navbar boolean?)
-(s/def :ui.settings/hide-input boolean?)
-(s/def :ui.settings/num-rows nat-int?)
-(s/def :ui.settings/hide-input-replies boolean?)
+(s/def :settings/hide-discussion-options boolean?)
+(s/def :settings/hide-navbar boolean?)
+(s/def :settings/hide-input boolean?)
+(s/def :settings/num-rows nat-int?)
+(s/def :settings/hide-input-replies boolean?)
 
-(s/def :ui.settings/schnaq
-  (s/keys :opt-un [:ui.settings/hide-discussion-options
-                   :ui.settings/hide-navbar
-                   :ui.settings/hide-input
-                   :ui.settings/num-rows
-                   :ui.settings/hide-input-replies]))
+(s/def :settings/schnaq
+  (s/keys :opt-un [:settings/hide-discussion-options
+                   :settings/hide-navbar
+                   :settings/hide-input
+                   :settings/num-rows
+                   :settings/hide-input-replies]))

@@ -48,18 +48,3 @@
     [header config/application-name]
     [:div.container.mx-auto.px-3.pt-3 body]
     [footer config/application-name]]])
-
-;; -----------------------------------------------------------------------------
-
-(rf/reg-sub
- :academy/share-hash
- (fn [db]
-   (let [share-hash (get-in db [:academy :share-hash])]
-     (if (and share-hash (s/valid? ::specs/share-hash share-hash))
-       share-hash
-       config/default-share-hash))))
-
-(rf/reg-event-db
- :academy/share-hash
- (fn [db [_ share-hash]]
-   (assoc-in db [:academy :share-hash] share-hash)))

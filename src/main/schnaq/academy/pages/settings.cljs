@@ -1,11 +1,13 @@
 (ns schnaq.academy.pages.settings
   "Describe iframe embeddings."
   (:require ["@heroicons/react/solid" :refer [ExternalLinkIcon]]
+            [cljs.spec.alpha :as s]
             [goog.string :refer [format]]
             [oops.core :refer [oget]]
             [re-frame.core :as rf]
             [schnaq.academy.config :as config]
             [schnaq.academy.pages.base :refer [base]]
+            [schnaq.academy.specs :as specs]
             [schnaq.academy.utils :as utils]))
 
 ;; -----------------------------------------------------------------------------
@@ -14,19 +16,19 @@
 (defn- language-input
   "Configure the language."
   []
-  (let [language @(rf/subscribe [:ui.settings/language])]
+  (let [language @(rf/subscribe [:settings/language])]
     [:label
      [:span "Stelle die Sprache ein."]
      [:select.input
       {:type :text
-       :on-change #(rf/dispatch [:ui.settings/field :language (oget % [:target :value])])}
+       :on-change #(rf/dispatch [:settings/field :language (oget % [:target :value])])}
       [:option {:value "de" :defaultValue (= language "de")} "de"]
       [:option {:value "en" :defaultValue (= language "en")} "en"]]]))
 
 (defn iframe-height-input
   "Configure the iframe height."
   []
-  (let [height @(rf/subscribe [:ui.iframe/height])]
+  (let [height @(rf/subscribe [:settings.iframe/height])]
     [:label
      [:span "Höhe des schnaqs in Pixeln."]
      [:input.input
@@ -34,54 +36,54 @@
        :value height
        :placeholder config/default-iframe-height
        :step 10
-       :on-change #(rf/dispatch [:ui.settings/field :height (oget % [:target :value])])}]]))
+       :on-change #(rf/dispatch [:settings/field :height (oget % [:target :value])])}]]))
 
 (defn num-rows-input
   "Set number of columns in a discussion view."
   []
-  (let [num-rows @(rf/subscribe [:ui.settings/field :num-rows])]
+  (let [num-rows @(rf/subscribe [:settings/field :num-rows])]
     [:label
      [:span "Maximale Anzahl der Spalten auf großen Bildschirmen."]
      [:input.input
       {:type :number
        :min 1
        :value (or num-rows 2)
-       :on-change #(rf/dispatch [:ui.settings/field :num-rows (oget % [:target :value])])}]]))
+       :on-change #(rf/dispatch [:settings/field :num-rows (oget % [:target :value])])}]]))
 
 (defn hide-navbar-input []
-  (let [hide-navbar @(rf/subscribe [:ui.settings/field :hide-navbar])]
+  (let [hide-navbar @(rf/subscribe [:settings/field :hide-navbar])]
     [:label.inline-flex.items-center
      [:input
       {:type :checkbox
        :value hide-navbar
-       :on-change #(rf/dispatch [:ui.settings/field :hide-navbar (oget % [:target :checked])])}]
+       :on-change #(rf/dispatch [:settings/field :hide-navbar (oget % [:target :checked])])}]
      [:span "Verstecke die Navigationsleiste."]]))
 
 (defn hide-discussion-options-input []
-  (let [hide-discussion-options @(rf/subscribe [:ui.settings/field :hide-discussion-options])]
+  (let [hide-discussion-options @(rf/subscribe [:settings/field :hide-discussion-options])]
     [:label.inline-flex.items-center
      [:input
       {:type :checkbox
        :value hide-discussion-options
-       :on-change #(rf/dispatch [:ui.settings/field :hide-discussion-options (oget % [:target :checked])])}]
+       :on-change #(rf/dispatch [:settings/field :hide-discussion-options (oget % [:target :checked])])}]
      [:span "Verstecke die Diskussionsoptionen."]]))
 
 (defn- hide-input-input []
-  (let [hide-input @(rf/subscribe [:ui.settings/field :hide-input])]
+  (let [hide-input @(rf/subscribe [:settings/field :hide-input])]
     [:label.inline-flex.items-center
      [:input
       {:type :checkbox
        :value hide-input
-       :on-change #(rf/dispatch [:ui.settings/field :hide-input (oget % [:target :checked])])}]
+       :on-change #(rf/dispatch [:settings/field :hide-input (oget % [:target :checked])])}]
      [:span "Deaktiviere Eingabemöglichkeiten."]]))
 
 (defn- hide-input-replies-input []
-  (let [hide-input-replies @(rf/subscribe [:ui.settings/field :hide-input-replies])]
+  (let [hide-input-replies @(rf/subscribe [:settings/field :hide-input-replies])]
     [:label.inline-flex.items-center
      [:input
       {:type :checkbox
        :value hide-input-replies
-       :on-change #(rf/dispatch [:ui.settings/field :hide-input-replies (oget % [:target :checked])])}]
+       :on-change #(rf/dispatch [:settings/field :hide-input-replies (oget % [:target :checked])])}]
      [:span "Deaktiviere Antwortmöglichkeiten"]]))
 
 ;; -----------------------------------------------------------------------------
@@ -97,7 +99,7 @@
 (defn- iframe
   "Embed the configured schnaq as an iframe."
   []
-  (let [height @(rf/subscribe [:ui.iframe/height])
+  (let [height @(rf/subscribe [:settings.iframe/height])
         height' (if (= "" height) config/default-iframe-height height)
         url-to-schnaq @(rf/subscribe [:schnaq.url/configured])]
     [:div {:style {:position :relative :overflow :hidden :width "100%" :padding-top (format "%dpx" height')}}
@@ -141,34 +143,34 @@
 ;; -----------------------------------------------------------------------------
 
 (rf/reg-event-db
- :ui.settings/field
+ :settings/field
  (fn [db [_ field value]]
    (assoc-in db [:settings field] value)))
 
 (rf/reg-sub
- :ui.settings/field
+ :settings/field
  (fn [db [_ field fallback]]
    (get-in db [:settings field] fallback)))
 
 (rf/reg-sub
- :ui.settings/language
+ :settings/language
  (fn [db]
    (get-in db [:settings :language] config/default-language)))
 
 (rf/reg-sub
- :ui.iframe/height
+ :settings.iframe/height
  (fn [db]
    (get-in db [:settings :height] 550)))
 
 (rf/reg-sub
  :schnaq.url/configured
- :<- [:academy/share-hash]
- :<- [:ui.settings/language]
- :<- [:ui.settings/field :num-rows]
- :<- [:ui.settings/field :hide-discussion-options]
- :<- [:ui.settings/field :hide-navbar]
- :<- [:ui.settings/field :hide-input]
- :<- [:ui.settings/field :hide-input-replies]
+ :<- [:settings/share-hash]
+ :<- [:settings/language]
+ :<- [:settings/field :num-rows]
+ :<- [:settings/field :hide-discussion-options]
+ :<- [:settings/field :hide-navbar]
+ :<- [:settings/field :hide-input]
+ :<- [:settings/field :hide-input-replies]
  (fn [[share-hash language num-rows hide-discussion-options hide-navbar hide-input hide-input-replies]]
    (let [query-parameters {:num-rows num-rows
                            :hide-discussion-options hide-discussion-options
@@ -178,3 +180,16 @@
      (utils/build-uri-with-query-params
       (format "%s/%s/schnaq/%s" config/frontend-url language share-hash)
       (utils/remove-falsy query-parameters)))))
+
+(rf/reg-sub
+ :settings/share-hash
+ (fn [db]
+   (let [share-hash (get-in db [:academy :share-hash])]
+     (if (and share-hash (s/valid? :discussion/share-hash share-hash))
+       share-hash
+       config/default-share-hash))))
+
+(rf/reg-event-db
+ :settings/share-hash
+ (fn [db [_ share-hash]]
+   (assoc-in db [:academy :share-hash] share-hash)))

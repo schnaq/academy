@@ -1,5 +1,5 @@
 (ns schnaq.academy.parser
-  (:require [com.fulcrologic.guardrails.core :refer [=> >defn]]
+  (:require [com.fulcrologic.guardrails.core :refer [=> >defn ?]]
             [goog.uri.utils :as uri]
             [reitit.coercion.spec :as rss]
             [reitit.frontend :as reitit-frontend]
@@ -7,7 +7,7 @@
 
 (def ^:private routes
   (let [configuration {:parameters {:path {:share-hash :discussion/share-hash}
-                                    :query :ui.settings/schnaq}}]
+                                    :query :settings/schnaq}}]
     [["/de/schnaq/:share-hash" configuration]
      ["/en/schnaq/:share-hash" configuration]
      ["/schnaq/:share-hash" configuration]]))
@@ -18,11 +18,6 @@
 (>defn extract-parameters
   "Extract parameters from configured and allowed urls."
   [url]
-  [string? => map?]
+  [string? => (? map?)]
   (let [path (uri/getPath url)]
-    (reitit-frontend/match-by-path router path)))
-
-(comment
-  (reitit-frontend/match-by-path router "/de/schnaq/9d3787a8-d6bb-4573-8324-bc9709b56116?foo=42&hide-input=true")
-
-  nil)
+    (:parameters (reitit-frontend/match-by-path router path))))
