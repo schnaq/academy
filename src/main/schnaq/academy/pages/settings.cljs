@@ -1,4 +1,4 @@
-(ns schnaq.academy.lectures.iframe
+(ns schnaq.academy.pages.settings
   "Describe iframe embeddings."
   (:require ["@heroicons/react/solid" :refer [ExternalLinkIcon]]
             [goog.string :refer [format]]
@@ -122,7 +122,6 @@
    [:section.grid.md:grid-cols-3.gap-4.pt-3.mb-5
     [language-input]
     [num-rows-input]
-
     [:div]
     [:div
      [hide-navbar-input]

@@ -1,12 +1,9 @@
 (ns schnaq.academy.base
   (:require ["@heroicons/react/solid" :refer [SunIcon MoonIcon]]
             [cljs.spec.alpha :as s]
-            [oops.core :refer [oget]]
             [re-frame.core :as rf]
             [schnaq.academy.config :as config]
-            [schnaq.academy.lectures.iframe :refer [ui-settings]]
-            [schnaq.academy.specs :as specs]
-            [schnaq.academy.utils]))
+            [schnaq.academy.specs :as specs]))
 
 (defn- header
   "Define the academy header."
@@ -51,24 +48,6 @@
     [header config/application-name]
     body
     [footer config/application-name]]])
-
-(defn- index-page []
-  (let [share-hash @(rf/subscribe [:academy/share-hash])]
-    [base
-     [:div.container.mx-auto.px-3.pt-3
-      [:h1 "Willkommen in der schnaq academy"]
-      [:p "Finde hier Anleitungen, Beispiele und Konfigurationen, wie du schnaq für dich verwenden kannst."]
-      [:div.grid.md:grid-cols-3
-       [:label
-        [:span "Füge hier deinen share-hash ein, wenn du die Demos mit deinem eigenen schnaq sehen möchtest. Das ist die lange Zahlenfolge aus deiner Browserzeile."]
-        [:input#iframe-share-hash.input
-         {:type :text
-          :on-change #(rf/dispatch [:academy/share-hash (oget % [:target :value])])
-          :placeholder share-hash}]]]
-      [ui-settings]]]))
-
-(defn index []
-  [index-page])
 
 ;; -----------------------------------------------------------------------------
 
