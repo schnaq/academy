@@ -1,9 +1,7 @@
 (ns schnaq.academy.pages.base
   (:require ["@heroicons/react/solid" :refer [SunIcon MoonIcon]]
-            [cljs.spec.alpha :as s]
             [re-frame.core :as rf]
-            [schnaq.academy.config :as config]
-            [schnaq.academy.specs :as specs]))
+            [schnaq.academy.config :as config]))
 
 (defn- header
   "Define the academy header."

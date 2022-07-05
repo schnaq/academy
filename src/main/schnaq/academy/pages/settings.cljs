@@ -7,7 +7,7 @@
             [re-frame.core :as rf]
             [schnaq.academy.config :as config]
             [schnaq.academy.pages.base :refer [base]]
-            [schnaq.academy.specs :as specs]
+            [schnaq.academy.specs]
             [schnaq.academy.utils :as utils]))
 
 ;; -----------------------------------------------------------------------------
@@ -184,12 +184,9 @@
 (rf/reg-sub
  :settings/share-hash
  (fn [db]
-   (let [share-hash (get-in db [:academy :share-hash])]
-     (if (and share-hash (s/valid? :discussion/share-hash share-hash))
-       share-hash
-       config/default-share-hash))))
+   (get-in db [:settings :share-hash] config/default-share-hash)))
 
 (rf/reg-event-db
  :settings/share-hash
  (fn [db [_ share-hash]]
-   (assoc-in db [:academy :share-hash] share-hash)))
+   (assoc-in db [:settings :share-hash] share-hash)))

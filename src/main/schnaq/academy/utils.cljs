@@ -6,10 +6,9 @@
                                                                       github]]
             [cljs.spec.alpha :as s]
             [com.fulcrologic.guardrails.core :refer [=> >defn]]
-            [goog.dom :as gdom]
-            [goog.dom.classlist :as gdomcl]
             [goog.uri.utils :as uri]
             [hodgepodge.core :refer [local-storage]]
+            [oops.core :refer [oget]]
             [re-frame.core :as rf]
             [reagent.dom.server :refer [render-to-string]]))
 
@@ -84,8 +83,8 @@
  :dark-mode/init!
  (fn []
    (if (dark-mode?)
-     (gdomcl/add (gdom/getElement "main") "dark")
-     (gdomcl/remove (gdom/getElement "main") "dark"))))
+     (.add (oget js/document [:documentElement :classList]) "dark")
+     (.remove (oget js/document [:documentElement :classList]) "dark"))))
 
 (rf/reg-fx
  :localstorage/assoc
