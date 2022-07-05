@@ -6,7 +6,7 @@
 (defn- index-page []
   (let [share-hash @(rf/subscribe [:academy/share-hash])]
     [base
-     [:div.container.mx-auto.px-3.pt-3
+     [:<>
       [:h1 "Willkommen in der schnaq academy"]
       [:p "Finde hier Anleitungen, Beispiele und Konfigurationen, wie du schnaq für dich verwenden kannst."]
       [:div.grid.md:grid-cols-3

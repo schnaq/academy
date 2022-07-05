@@ -46,7 +46,7 @@
   [:main#main
    [:div.dark:bg-gray-700.dark:text-white
     [header config/application-name]
-    body
+    [:div.container.mx-auto.px-3.pt-3 body]
     [footer config/application-name]]])
 
 ;; -----------------------------------------------------------------------------
