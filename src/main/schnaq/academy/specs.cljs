@@ -3,6 +3,8 @@
 
 (s/def :re-frame/component vector?)
 
+(s/def :discussion/language #{"de" "en"})
+
 ;; -----------------------------------------------------------------------------
 ;; Accepted arguments from schnaq via URL
 

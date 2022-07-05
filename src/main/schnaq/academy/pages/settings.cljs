@@ -23,9 +23,10 @@
      [:span "Stelle die Sprache ein."]
      [:select.input
       {:type :text
+       :value language
        :on-change #(rf/dispatch [:settings/field :language (oget % [:target :value])])}
-      [:option {:value "de" :defaultValue (= language "de")} "de"]
-      [:option {:value "en" :defaultValue (= language "en")} "en"]]]))
+      [:option {:value "de"} "de"]
+      [:option {:value "en"} "en"]]]))
 
 (defn iframe-height-input
   "Configure the iframe height."
@@ -57,7 +58,7 @@
     [:label.inline-flex.items-center
      [:input
       {:type :checkbox
-       :value hide-navbar
+       :checked hide-navbar
        :on-change #(rf/dispatch [:settings/field :hide-navbar (oget % [:target :checked])])}]
      [:span "Verstecke die Navigationsleiste."]]))
 
@@ -66,7 +67,7 @@
     [:label.inline-flex.items-center
      [:input
       {:type :checkbox
-       :value hide-footer
+       :checked hide-footer
        :on-change #(rf/dispatch [:settings/field :hide-footer (oget % [:target :checked])])}]
      [:span "Verstecke Footer (Standard wenn in iFrame eingebunden)."]]))
 
@@ -75,7 +76,7 @@
     [:label.inline-flex.items-center
      [:input
       {:type :checkbox
-       :value hide-discussion-options
+       :checked hide-discussion-options
        :on-change #(rf/dispatch [:settings/field :hide-discussion-options (oget % [:target :checked])])}]
      [:span "Verstecke die Diskussionsoptionen."]]))
 
@@ -84,7 +85,7 @@
     [:label.inline-flex.items-center
      [:input
       {:type :checkbox
-       :value hide-input
+       :checked hide-input
        :on-change #(rf/dispatch [:settings/field :hide-input (oget % [:target :checked])])}]
      [:span "Deaktiviere Eingabemöglichkeiten."]]))
 
@@ -206,6 +207,12 @@
    (when (s/valid? :discussion/share-hash share-hash)
      (assoc-in db [:settings :share-hash] share-hash))))
 
+(rf/reg-event-db
+ :settings/language
+ (fn [db [_ language]]
+   (let [checked-language (if (s/valid? :discussion/language language) language "de")]
+     (assoc-in db [:settings :language] checked-language))))
+
 (rf/reg-event-fx
  :settings/from-schnaq-url
  (fn [{:keys [db]} [_ url]]
@@ -215,5 +222,5 @@
          language (get-in parameters [:path :language])]
      {:db (update db :settings merge (:query parameters))
       :fx [[:dispatch [:settings/share-hash share-hash]]
-           [:dispatch [:settings/field :language language]]
+           [:dispatch [:settings/language language]]
            [:dispatch [:settings/field :host host]]]})))
