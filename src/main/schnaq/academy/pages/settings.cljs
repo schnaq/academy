@@ -5,6 +5,7 @@
             [oops.core :refer [oget]]
             [re-frame.core :as rf]
             [schnaq.academy.config :as config]
+            [schnaq.academy.pages.base :refer [base]]
             [schnaq.academy.utils :as utils]))
 
 ;; -----------------------------------------------------------------------------
@@ -104,7 +105,7 @@
       {:style {:position :absolute :width "100%" :height "100%" :top 0 :bottom 0 :left 0 :right 0}
        :src url-to-schnaq}]]))
 
-(defn iframe-embedding []
+(defn iframe-explanation []
   (let [html (utils/component->pretty-html [iframe])]
     [:<>
      [:h3 "Einbettungscode für iFrames"]
@@ -129,9 +130,13 @@
      [hide-input-input]
      [hide-input-replies-input]]]
    [copy-link-button]
-   [iframe-embedding]
+   [iframe-explanation]
    [:h3 "Vorschau"]
-   #_[embedding]])
+   [iframe]])
+
+(defn settings []
+  [base
+   [ui-settings]])
 
 ;; -----------------------------------------------------------------------------
 

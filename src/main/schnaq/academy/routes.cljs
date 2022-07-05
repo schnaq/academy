@@ -5,12 +5,15 @@
             [reitit.frontend.controllers :as rfc]
             [reitit.frontend.easy :as rfe]
             [schnaq.academy.pages.index :refer [index]]
+            [schnaq.academy.pages.settings :refer [settings]]
             [schnaq.academy.specs]))
 
 (def routes
   ["" {:controllers [{:start #(rf/dispatch [:init])}]}
    ["/" {:name :routes/start
-         :views index}]])
+         :views index}]
+   ["/settings" {:name :routes/settings
+                 :views settings}]])
 
 (defn on-navigate [new-match]
   (when new-match

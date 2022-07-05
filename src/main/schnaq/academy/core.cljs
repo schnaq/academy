@@ -1,17 +1,14 @@
 (ns schnaq.academy.core
-  (:require ["react-dom/client" :refer [createRoot]]
-            [goog.dom :as gdom]
+  (:require [goog.dom :as gdom]
             [goog.string.format] ;; required for goog.string. We need to require it once in our project.
             [re-frame.core :as rf]
-            [reagent.core :as r]
+            [reagent.dom]
             [schnaq.academy.pages.base :as base]
             [schnaq.academy.routes :as routes]
             [schnaq.academy.utils]))
 
-(defonce root (createRoot (gdom/getElement "app")))
-
 (defn- render []
-  (.render root (r/as-element [base/root])))
+  (reagent.dom/render [base/root] (gdom/getElement "app")))
 
 (defn init
   []

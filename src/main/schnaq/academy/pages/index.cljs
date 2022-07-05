@@ -1,8 +1,7 @@
 (ns schnaq.academy.pages.index
   (:require [oops.core :refer [oget]]
             [re-frame.core :as rf]
-            [schnaq.academy.pages.base :refer [base]]
-            [schnaq.academy.pages.settings :refer [ui-settings]]))
+            [schnaq.academy.pages.base :refer [base]]))
 
 (defn- index-page []
   (let [share-hash @(rf/subscribe [:academy/share-hash])]
@@ -17,7 +16,7 @@
          {:type :text
           :on-change #(rf/dispatch [:academy/share-hash (oget % [:target :value])])
           :placeholder share-hash}]]]
-      [ui-settings]]]))
+      #_[ui-settings]]]))
 
 (defn index []
   [index-page])
