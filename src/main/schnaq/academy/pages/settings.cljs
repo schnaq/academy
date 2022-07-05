@@ -24,7 +24,7 @@
      [:select.input
       {:type :text
        :value language
-       :on-change #(rf/dispatch [:settings/field :language (oget % [:target :value])])}
+       :on-change #(rf/dispatch [:settings/language (oget % [:target :value])])}
       [:option {:value "de"} "de"]
       [:option {:value "en"} "en"]]]))
 
