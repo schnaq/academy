@@ -122,6 +122,7 @@
    [:section.grid.md:grid-cols-3.gap-4.pt-3.mb-5
     [language-input]
     [num-rows-input]
+
     [:div]
     [:div
      [hide-navbar-input]
@@ -138,22 +139,22 @@
 (rf/reg-event-db
  :ui.settings/field
  (fn [db [_ field value]]
-   (assoc-in db [:iframe field] value)))
+   (assoc-in db [:settings field] value)))
 
 (rf/reg-sub
  :ui.settings/field
  (fn [db [_ field fallback]]
-   (get-in db [:iframe field] fallback)))
+   (get-in db [:settings field] fallback)))
 
 (rf/reg-sub
  :ui.settings/language
  (fn [db]
-   (get-in db [:iframe :language] config/default-language)))
+   (get-in db [:settings :language] config/default-language)))
 
 (rf/reg-sub
  :ui.iframe/height
  (fn [db]
-   (get-in db [:iframe :height] 550)))
+   (get-in db [:settings :height] 550)))
 
 (rf/reg-sub
  :schnaq.url/configured
