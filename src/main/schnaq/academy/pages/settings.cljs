@@ -3,10 +3,12 @@
   (:require ["@heroicons/react/solid" :refer [ExternalLinkIcon]]
             [cljs.spec.alpha :as s]
             [goog.string :refer [format]]
+            [goog.uri.utils :as uri]
             [oops.core :refer [oget]]
             [re-frame.core :as rf]
             [schnaq.academy.config :as config]
             [schnaq.academy.pages.base :refer [base]]
+            [schnaq.academy.parser :as parser]
             [schnaq.academy.specs]
             [schnaq.academy.utils :as utils]))
 
@@ -165,20 +167,21 @@
 (rf/reg-sub
  :schnaq.url/configured
  :<- [:settings/share-hash]
+ :<- [:settings/field :host]
  :<- [:settings/language]
  :<- [:settings/field :num-rows]
  :<- [:settings/field :hide-discussion-options]
  :<- [:settings/field :hide-navbar]
  :<- [:settings/field :hide-input]
  :<- [:settings/field :hide-input-replies]
- (fn [[share-hash language num-rows hide-discussion-options hide-navbar hide-input hide-input-replies]]
+ (fn [[share-hash host language num-rows hide-discussion-options hide-navbar hide-input hide-input-replies]]
    (let [query-parameters {:num-rows num-rows
                            :hide-discussion-options hide-discussion-options
                            :hide-navbar hide-navbar
                            :hide-input hide-input
                            :hide-input-replies hide-input-replies}]
      (utils/build-uri-with-query-params
-      (format "%s/%s/schnaq/%s" config/frontend-url language share-hash)
+      (format "%s/%s/schnaq/%s" (or host config/frontend-url) language share-hash)
       (utils/remove-falsy query-parameters)))))
 
 (rf/reg-sub
@@ -189,4 +192,17 @@
 (rf/reg-event-db
  :settings/share-hash
  (fn [db [_ share-hash]]
-   (assoc-in db [:settings :share-hash] share-hash)))
+   (when (s/valid? :discussion/share-hash share-hash)
+     (assoc-in db [:settings :share-hash] share-hash))))
+
+(rf/reg-event-fx
+ :settings/from-schnaq-url
+ (fn [{:keys [db]} [_ url]]
+   (let [host (uri/getHost url)
+         parameters (parser/extract-parameters url)
+         share-hash (get-in parameters [:path :share-hash])
+         language (get-in parameters [:path :language])]
+     {:db (update db :settings merge (:query parameters))
+      :fx [[:dispatch [:settings/share-hash share-hash]]
+           [:dispatch [:settings/field :language language]]
+           [:dispatch [:settings/field :host host]]]})))
