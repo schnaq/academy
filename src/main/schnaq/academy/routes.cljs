@@ -17,9 +17,9 @@
                                (rf/dispatch [:settings/from-schnaq-url (:url query)]))}]}
    ["/" {:controllers [{:start (fn [{:keys [query]}]
                                  (rf/dispatch [:routes/navigate :routes/start {} query]))}]}]
-   ["/de" {:name :routes/start
-           :views index}]
    ["/de"
+    ["" {:name :routes/start
+         :views index}]
     ["/einbettung" {:name :routes/embedding
                     :views embedding}]]])
 
