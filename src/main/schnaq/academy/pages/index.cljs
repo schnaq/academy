@@ -10,7 +10,7 @@
      [:<>
       [:h1 "Willkommen in der schnaq academy"]
       [:p "Finde hier Anleitungen, Beispiele und Konfigurationen, wie du schnaq für dich verwenden kannst."]
-      [:div {:class "w-1/3"}
+      [:div {:class "md:w-1/3"}
        [schnaq-url-input]]
       [:h2 "Einbettung"]
       [:p "schnaq kann in beliebige Webkontexte per iFrame eingebunden werden. Lerne hier, wie das funktioniert."]
