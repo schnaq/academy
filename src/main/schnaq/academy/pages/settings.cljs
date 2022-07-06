@@ -135,7 +135,9 @@
       {:style {:position :absolute :width "100%" :height "100%" :top 0 :bottom 0 :left 0 :right 0}
        :src url-to-schnaq}]]))
 
-(defn iframe-explanation []
+(defn iframe-explanation
+  "Explain iframe to the user."
+  []
   (let [html (utils/component->pretty-html [iframe])]
     [:<>
      [:h3 "Einbettungscode für iFrames"]
@@ -145,27 +147,37 @@
      [utils/highlight-code {:language "html"} html]
      [:button {:on-click #(utils/copy-to-clipboard! html)} "Code kopieren"]]))
 
+(defn- iframe-preview
+  "Enable iframe preview."
+  []
+  (let [visible? (r/atom false)]
+    (fn []
+      [:<>
+       [:h3 "Vorschau"]
+       [:p "Schau dir hier eine Vorschau zu deinem konfigurierten schnaq an. Dies ist genau der Code aus dem iFrame, den du oben konfiguriert hast."]
+       [:button {:on-click #(swap! visible? not)} (if @visible? "Vorschau verstecken" "Vorschau anzeigen")]
+       (when @visible?
+         [iframe])])))
+
 (defn ui-settings []
-  (let [host @(rf/subscribe [:settings/field :host])]
-    [:<>
-     [:h2 "Interface Einstellungen"]
-     [:p "Um schnaq in verschiedene Web-Kontexte einzubinden (bspw. Websites, E-Learningplattformen, Powerpoint-Präsentationen, ...), kann das Interface angepasst werden. Hier können diese Einstellungen vorgenommen werden, um einen Code zu generieren, der dann in die entsprechenden Web-Bereiche verwendet zu werden."]
-     [:p "Die Einstellungen sind interaktiv und finden nur bei dir im Browser statt. Wenn du den Zugangslink zu deinem schnaq hier eingibst, wird er nicht gespeichert und nur auf deinem Gerät weiterverarbeitet."]
-     [schnaq-url-input]
-     [:section.grid.md:grid-cols-2.gap-4.pt-3.mb-5
-      [language-input]
-      [num-rows-input]
-      [:div
-       [:div [hide-navbar-input]]
-       [:div [hide-footer-input]]
-       [:div [hide-discussion-options-input]]
-       [:div [hide-input-input]]
-       [:div [hide-input-replies-input]]]]
-     [:p "Hier ist dein generierter Link zu deinem schnaq:"]
-     [copy-link-button]
-     [iframe-explanation]
-     [:h3 "Vorschau"]
-     #_[iframe]]))
+  [:<>
+   [:h2 "Interface Einstellungen"]
+   [:p "Um schnaq in verschiedene Web-Kontexte einzubinden (bspw. Websites, E-Learningplattformen, Powerpoint-Präsentationen, ...), kann das Interface angepasst werden. Hier können diese Einstellungen vorgenommen werden, um einen Code zu generieren, der dann in die entsprechenden Web-Bereiche verwendet zu werden."]
+   [:p "Die Einstellungen sind interaktiv und finden nur bei dir im Browser statt. Wenn du den Zugangslink zu deinem schnaq hier eingibst, wird er nicht gespeichert und nur auf deinem Gerät weiterverarbeitet."]
+   [schnaq-url-input]
+   [:section.grid.md:grid-cols-2.gap-4.pt-3.mb-5
+    [language-input]
+    [num-rows-input]
+    [:div
+     [:div [hide-navbar-input]]
+     [:div [hide-footer-input]]
+     [:div [hide-discussion-options-input]]
+     [:div [hide-input-input]]
+     [:div [hide-input-replies-input]]]]
+   [:p "Hier ist dein generierter Link zu deinem schnaq:"]
+   [copy-link-button]
+   [iframe-explanation]
+   [iframe-preview]])
 
 (defn settings []
   [base
