@@ -3,12 +3,8 @@
 (def application-name
   "schnaq academy")
 
-(def frontend-url
-  "http://localhost:8700")
-
-(def default-share-hash
-  "Point to a default schnaq. In this case the FAQ production schnaq."
-  "120900da-912e-422b-8ab2-19983cb63cd8")
+(def frontend-url "https://app.schnaq.com")
+(def default-share-hash "e8f54922-0d88-4953-8f43-ddc819d7f201")
 
 ;; -----------------------------------------------------------------------------
 
