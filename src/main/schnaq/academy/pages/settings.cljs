@@ -59,7 +59,7 @@
     [:label.inline-flex.items-center
      [:input
       {:type :checkbox
-       :checked hide-navbar
+       :checked (or hide-navbar false)
        :on-change #(rf/dispatch [:settings/field :hide-navbar (oget % [:target :checked])])}]
      [:span "Verstecke die Navigationsleiste."]]))
 
@@ -68,7 +68,7 @@
     [:label.inline-flex.items-center
      [:input
       {:type :checkbox
-       :checked hide-footer
+       :checked (or hide-footer false)
        :on-change #(rf/dispatch [:settings/field :hide-footer (oget % [:target :checked])])}]
      [:span "Verstecke Footer (Standard wenn in iFrame eingebunden)."]]))
 
@@ -77,7 +77,7 @@
     [:label.inline-flex.items-center
      [:input
       {:type :checkbox
-       :checked hide-discussion-options
+       :checked (or hide-discussion-options false)
        :on-change #(rf/dispatch [:settings/field :hide-discussion-options (oget % [:target :checked])])}]
      [:span "Verstecke die Diskussionsoptionen."]]))
 
@@ -86,7 +86,7 @@
     [:label.inline-flex.items-center
      [:input
       {:type :checkbox
-       :checked hide-input
+       :checked (or hide-input false)
        :on-change #(rf/dispatch [:settings/field :hide-input (oget % [:target :checked])])}]
      [:span "Deaktiviere Eingabemöglichkeiten."]]))
 
@@ -100,19 +100,15 @@
      [:span "Deaktiviere Antwortmöglichkeiten."]]))
 
 (defn schnaq-url-input []
-  (let [schnaq-url @(rf/subscribe [:settings/schnaq-url])
-        val (r/atom "")]
-    (fn []
-      [:label
-       [:span "Füge hier die vollständige Adresse zu deinem schnaq ein."]
-       [:input.input
-        {:type :text
-         :value @val
-         :on-change (fn [e]
-                      (let [content (oget e [:target :value])]
-                        (reset! val content)
-                        (rf/dispatch [:settings/from-schnaq-url content])))
-         :placeholder schnaq-url}]])))
+  (let [schnaq-url @(rf/subscribe [:settings/schnaq-url])]
+    [:label
+     [:span "Füge hier die vollständige Adresse zu deinem schnaq ein."]
+     [:input.input
+      {:type :text
+       :on-change (fn [e]
+                    (let [content (oget e [:target :value])]
+                      (rf/dispatch [:settings/from-schnaq-url content])))
+       :placeholder schnaq-url}]]))
 
 ;; -----------------------------------------------------------------------------
 
@@ -252,13 +248,14 @@
 (rf/reg-event-fx
  :settings/from-schnaq-url
  (fn [{:keys [db]} [_ url]]
-   (let [host (uri/getHost url)
-         parameters (parser/extract-parameters url)
-         share-hash (get-in parameters [:path :share-hash])
-         language (get-in parameters [:path :language])]
-     {:db (update db :settings merge (:query parameters))
-      :fx [[:dispatch [:settings/share-hash share-hash]]
-           [:dispatch [:settings/language language]]
-           [:dispatch (if (seq host)
-                        [:settings/field :host host]
-                        [:settings.field/dissoc :host])]]})))
+   (when url
+     (let [host (uri/getHost url)
+           parameters (parser/extract-parameters url)
+           share-hash (get-in parameters [:path :share-hash])
+           language (get-in parameters [:path :language])]
+       {:db (update db :settings merge (:query parameters))
+        :fx [[:dispatch [:settings/share-hash share-hash]]
+             [:dispatch [:settings/language language]]
+             [:dispatch (if (seq host)
+                          [:settings/field :host host]
+                          [:settings.field/dissoc :host])]]}))))

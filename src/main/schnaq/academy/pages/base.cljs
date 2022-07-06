@@ -7,15 +7,16 @@
 (defn- header
   "Define the academy header."
   []
-  (let [dark-mode? @(rf/subscribe [:dark-mode?])]
+  (let [dark-mode? @(rf/subscribe [:dark-mode?])
+        query-parameters @(rf/subscribe [:routes/query-parameters])]
     [:nav.flex.bg-blue.dark:bg-blue-dark.p-6.text-white
      [:div.flex.items-center.flex-no-shrink.mr-6.cursor-pointer
       {:on-click #(rf/dispatch [:routes/navigate :routes/start])}
       [:img.h-8.pr-2 {:src "https://s3.schnaq.com/schnaq-common/logos/schnaqqifant_white.svg"}]
       [:span.font-semibold.text-xl.tracking-tight
        config/application-name]]
-     [:a.header-link {:href (rfe/href :routes/start)} "Start"]
-     [:a.header-link {:href (rfe/href :routes/settings)} "Einstellungen"]
+     [:a.header-link {:href (rfe/href :routes/start {} query-parameters)} "Start"]
+     [:a.header-link {:href (rfe/href :routes/settings {} query-parameters)} "Einstellungen"]
      [:div.ml-auto]
      [:> (if dark-mode? MoonIcon SunIcon)
       {:class "h-7 my-auto pr-3 cursor-pointer"
