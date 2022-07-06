@@ -6,7 +6,6 @@
             [goog.uri.utils :as uri]
             [oops.core :refer [oget]]
             [re-frame.core :as rf]
-            [reagent.core :as r]
             [schnaq.academy.config :as config]
             [schnaq.academy.pages.base :refer [base]]
             [schnaq.academy.parser :as parser]
@@ -95,7 +94,7 @@
     [:label.inline-flex.items-center
      [:input
       {:type :checkbox
-       :value hide-input-replies
+       :value (or hide-input-replies false)
        :on-change #(rf/dispatch [:settings/field :hide-input-replies (oget % [:target :checked])])}]
      [:span "Deaktiviere Antwortmöglichkeiten."]]))
 
