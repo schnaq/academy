@@ -39,13 +39,14 @@
 
 (rf/reg-fx
  :push-state
- (fn [route]
-   (apply rfe/push-state route)))
+ (fn [[route query-parameters]]
+   (apply #(rfe/push-state % {} query-parameters) route)))
 
 (rf/reg-event-fx
  :routes/navigate
- (fn [_ [_ & route]]
-   {:push-state route}))
+ (fn [{:keys [db]} [_ & route]]
+   (let [query-parameters (get-in db [:current-route :parameters :query])]
+     {:fx [[:push-state [route query-parameters]]]})))
 
 (rf/reg-event-db
  :routes/navigated
