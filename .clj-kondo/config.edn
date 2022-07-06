@@ -5,4 +5,5 @@
  :linters {:single-key-in {:level :warning}
            :unsorted-required-namespaces {:level :warning}
            :unused-referred-var {:exclude {com.fulcrologic.guardrails.core [=>]}}
+           :unused-private-var {:exclude [schnaq.academy.core/clear-cache-and-render!]}
            :unresolved-symbol {:exclude [(shadow.cljs.modern/defclass)]}}}
