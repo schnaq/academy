@@ -120,41 +120,6 @@
      [:a {:href url-to-schnaq :target :_blank}
       "schnaq besuchen" [:> ExternalLinkIcon {:class "h-5 inline"}]]]))
 
-(defn- iframe
-  "Embed the configured schnaq as an iframe."
-  []
-  (let [height @(rf/subscribe [:settings.iframe/height])
-        height' (if (= "" height) config/default-iframe-height height)
-        url-to-schnaq @(rf/subscribe [:settings/schnaq-url])]
-    [:div {:style {:position :relative :overflow :hidden :width "100%" :padding-top (format "%dpx" height')}}
-     [:iframe
-      {:style {:position :absolute :width "100%" :height "100%" :top 0 :bottom 0 :left 0 :right 0}
-       :src url-to-schnaq}]]))
-
-(defn iframe-explanation
-  "Explain iframe to the user."
-  []
-  (let [html (utils/component->pretty-html [iframe])]
-    [:<>
-     [:h3 "Einbettungscode für iFrames"]
-     [:p "Viele Plattformen erlauben es andere Websites in Form von iFrames einzubinden, also als ein Seite-in-Seite-Modus. Das ist auch mit schnaq möglich, sodass es nahezu überall verwendet werden kann, wo Webanwendungen verwendet werden."]
-     [:p "Kopiere den Code in deine Webanwendung, um den schnaq wie unten angegeben in deine Website einzubetten."]
-     [:div {:class "w-1/3"} [iframe-height-input]]
-     [utils/highlight-code {:language "html"} html]
-     [:button {:on-click #(utils/copy-to-clipboard! html)} "Code kopieren"]]))
-
-(defn- iframe-preview
-  "Enable iframe preview."
-  []
-  (let [visible? (r/atom false)]
-    (fn []
-      [:<>
-       [:h3 "Vorschau"]
-       [:p "Schau dir hier eine Vorschau zu deinem konfigurierten schnaq an. Dies ist genau der Code aus dem iFrame, den du oben konfiguriert hast."]
-       [:button {:on-click #(swap! visible? not)} (if @visible? "Vorschau verstecken" "Vorschau anzeigen")]
-       (when @visible?
-         [iframe])])))
-
 (defn ui-settings []
   [:<>
    [:h2 "Interface Einstellungen"]
@@ -171,9 +136,7 @@
      [:div [hide-input-input]]
      [:div [hide-input-replies-input]]]]
    [:p "Hier ist dein generierter Link zu deinem schnaq:"]
-   [copy-link-button]
-   [iframe-explanation]
-   [iframe-preview]])
+   [copy-link-button]])
 
 (defn settings []
   [base

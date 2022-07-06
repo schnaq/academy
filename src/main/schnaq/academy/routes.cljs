@@ -4,8 +4,8 @@
             [reitit.frontend :as reitit-frontend]
             [reitit.frontend.controllers :as rfc]
             [reitit.frontend.easy :as rfe]
+            [schnaq.academy.pages.embedding :refer [embedding]]
             [schnaq.academy.pages.index :refer [index]]
-            [schnaq.academy.pages.settings :refer [settings]]
             [schnaq.academy.specs]
             [spec-tools.data-spec :as ds]))
 
@@ -15,10 +15,13 @@
                       :start (fn [{:keys [query]}]
                                (rf/dispatch [:init])
                                (rf/dispatch [:settings/from-schnaq-url (:url query)]))}]}
-   ["/" {:name :routes/start
-         :views index}]
-   ["/settings" {:name :routes/settings
-                 :views settings}]])
+   ["/" {:controllers [{:start (fn [{:keys [query]}]
+                                 (rf/dispatch [:routes/navigate :routes/start {} query]))}]}]
+   ["/de" {:name :routes/start
+           :views index}]
+   ["/de"
+    ["/einbettung" {:name :routes/embedding
+                    :views embedding}]]])
 
 (defn on-navigate [new-match]
   (when new-match

@@ -16,7 +16,7 @@
       [:span.font-semibold.text-xl.tracking-tight
        config/application-name]]
      [:a.header-link {:href (rfe/href :routes/start {} query-parameters)} "Start"]
-     [:a.header-link {:href (rfe/href :routes/settings {} query-parameters)} "Einstellungen"]
+     [:a.header-link {:href (rfe/href :routes/embedding {} query-parameters)} "Einbettung"]
      [:div.ml-auto]
      [:> (if dark-mode? MoonIcon SunIcon)
       {:class "h-7 my-auto pr-3 cursor-pointer"
