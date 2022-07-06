@@ -6,6 +6,7 @@
             [goog.uri.utils :as uri]
             [oops.core :refer [oget]]
             [re-frame.core :as rf]
+            [reagent.core :as r]
             [schnaq.academy.config :as config]
             [schnaq.academy.pages.base :refer [base]]
             [schnaq.academy.parser :as parser]
@@ -98,10 +99,25 @@
        :on-change #(rf/dispatch [:settings/field :hide-input-replies (oget % [:target :checked])])}]
      [:span "Deaktiviere Antwortmöglichkeiten."]]))
 
+(defn schnaq-url-input []
+  (let [schnaq-url @(rf/subscribe [:settings/schnaq-url])
+        val (r/atom "")]
+    (fn []
+      [:label
+       [:span "Füge hier die vollständige Adresse zu deinem schnaq ein."]
+       [:input.input
+        {:type :text
+         :value @val
+         :on-change (fn [e]
+                      (let [content (oget e [:target :value])]
+                        (reset! val content)
+                        (rf/dispatch [:settings/from-schnaq-url content])))
+         :placeholder schnaq-url}]])))
+
 ;; -----------------------------------------------------------------------------
 
 (defn- copy-link-button []
-  (let [url-to-schnaq @(rf/subscribe [:schnaq.url/configured])]
+  (let [url-to-schnaq @(rf/subscribe [:settings/schnaq-url])]
     [:<>
      [utils/highlight-code {:language "clojure"} url-to-schnaq]
      [:button.mr-3 {:on-click #(utils/copy-to-clipboard! url-to-schnaq)} "Link kopieren"]
@@ -113,7 +129,7 @@
   []
   (let [height @(rf/subscribe [:settings.iframe/height])
         height' (if (= "" height) config/default-iframe-height height)
-        url-to-schnaq @(rf/subscribe [:schnaq.url/configured])]
+        url-to-schnaq @(rf/subscribe [:settings/schnaq-url])]
     [:div {:style {:position :relative :overflow :hidden :width "100%" :padding-top (format "%dpx" height')}}
      [:iframe
       {:style {:position :absolute :width "100%" :height "100%" :top 0 :bottom 0 :left 0 :right 0}
@@ -130,23 +146,26 @@
      [:button {:on-click #(utils/copy-to-clipboard! html)} "Code kopieren"]]))
 
 (defn ui-settings []
-  [:<>
-   [:h2 "Interface Einstellungen"]
-   [:p "Um schnaq in verschiedene Web-Kontexte einzubinden (bspw. Websites, E-Learningplattformen, Powerpoint-Präsentationen, ...), kann das Interface angepasst werden. Hier können diese Einstellungen vorgenommen werden, um einen Code zu generieren, der dann in die entsprechenden Web-Bereiche verwendet zu werden."]
-   [:p "Die Einstellungen sind interaktiv und finden nur bei dir im Browser statt. Wenn du den Zugangslink zu deinem schnaq hier eingibst, wird er nicht gespeichert und nur auf deinem Gerät weiterverarbeitet."]
-   [:section.grid.md:grid-cols-2.gap-4.pt-3.mb-5
-    [language-input]
-    [num-rows-input]
-    [:div
-     [:div [hide-navbar-input]]
-     [:div [hide-footer-input]]
-     [:div [hide-discussion-options-input]]
-     [:div [hide-input-input]]
-     [:div [hide-input-replies-input]]]]
-   [copy-link-button]
-   [iframe-explanation]
-   [:h3 "Vorschau"]
-   #_[iframe]])
+  (let [host @(rf/subscribe [:settings/field :host])]
+    [:<>
+     [:h2 "Interface Einstellungen"]
+     [:p "Um schnaq in verschiedene Web-Kontexte einzubinden (bspw. Websites, E-Learningplattformen, Powerpoint-Präsentationen, ...), kann das Interface angepasst werden. Hier können diese Einstellungen vorgenommen werden, um einen Code zu generieren, der dann in die entsprechenden Web-Bereiche verwendet zu werden."]
+     [:p "Die Einstellungen sind interaktiv und finden nur bei dir im Browser statt. Wenn du den Zugangslink zu deinem schnaq hier eingibst, wird er nicht gespeichert und nur auf deinem Gerät weiterverarbeitet."]
+     [schnaq-url-input]
+     [:section.grid.md:grid-cols-2.gap-4.pt-3.mb-5
+      [language-input]
+      [num-rows-input]
+      [:div
+       [:div [hide-navbar-input]]
+       [:div [hide-footer-input]]
+       [:div [hide-discussion-options-input]]
+       [:div [hide-input-input]]
+       [:div [hide-input-replies-input]]]]
+     [:p "Hier ist dein generierter Link zu deinem schnaq:"]
+     [copy-link-button]
+     [iframe-explanation]
+     [:h3 "Vorschau"]
+     #_[iframe]]))
 
 (defn settings []
   [base
@@ -180,7 +199,7 @@
    (get-in db [:settings :height] 550)))
 
 (rf/reg-sub
- :schnaq.url/configured
+ :settings/schnaq-url
  :<- [:settings/share-hash]
  :<- [:settings/field :host]
  :<- [:settings/language]

@@ -26,13 +26,14 @@
 (defn- footer
   "Define the academy footer."
   []
-  [:nav.flex.bg-blue-dark.p-6.text-white.mt-5
-   [:div.flex.items-center.flex-no-shrink.mr-6
-    [:img.h-8.pr-2 {:src "https://s3.schnaq.com/schnaq-common/logos/schnaqqifant_white.svg"}]
-    [:span.font-semibold.text-xl.tracking-tight config/application-name]]
-   [:div.ml-auto]
-   [:a.text-white.mr-3 {:target :_blank :href "https://schnaq.com/de/legal-note"} "Impressum"]
-   [:a.text-white {:target :_blank :href "https://schnaq.com/de/privacy"} "Datenschutz"]])
+  [:footer
+   [:nav.flex.bg-blue-dark.p-6.text-white.mt-5
+    [:div.flex.items-center.flex-no-shrink.mr-6
+     [:img.h-8.pr-2 {:src "https://s3.schnaq.com/schnaq-common/logos/schnaqqifant_white.svg"}]
+     [:span.font-semibold.text-xl.tracking-tight config/application-name]]
+    [:div.ml-auto]
+    [:a.text-white.mr-3 {:target :_blank :href "https://schnaq.com/de/legal-note"} "Impressum"]
+    [:a.text-white {:target :_blank :href "https://schnaq.com/de/privacy"} "Datenschutz"]]])
 
 ;; -----------------------------------------------------------------------------
 
@@ -45,7 +46,7 @@
        [current-view])]))
 
 (defn base [body]
-  [:main#main
+  [:main
    [:div.dark:bg-gray-700.dark:text-white
     [header]
     [:div.container.mx-auto.px-3.pt-3 body]
