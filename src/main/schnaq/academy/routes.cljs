@@ -20,8 +20,8 @@
    ["/de"
     ["" {:name :routes/start
          :views index}]
-    ["/einbettung" {:name :routes/embedding
-                    :views embedding}]]])
+    ["/embedding" {:name :routes/embedding
+                   :views embedding}]]])
 
 (defn on-navigate [new-match]
   (when new-match
