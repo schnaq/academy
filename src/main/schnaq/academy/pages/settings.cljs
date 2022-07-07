@@ -7,7 +7,6 @@
             [oops.core :refer [oget]]
             [re-frame.core :as rf]
             [schnaq.academy.config :as config]
-            [schnaq.academy.pages.base :refer [base]]
             [schnaq.academy.parser :as parser]
             [schnaq.academy.specs]
             [schnaq.academy.utils :as utils]))
@@ -146,10 +145,6 @@
      [:div [hide-input-replies-input]]]]
    [:p "Hier ist dein generierter Link zu deinem schnaq:"]
    [copy-link-button]])
-
-(defn settings []
-  [base
-   [ui-settings]])
 
 ;; -----------------------------------------------------------------------------
 

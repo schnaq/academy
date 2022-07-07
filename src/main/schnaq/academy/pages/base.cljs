@@ -15,7 +15,7 @@
       [:img.h-8.pr-2 {:src "https://s3.schnaq.com/schnaq-common/logos/schnaqqifant_white.svg"}]
       [:span.font-semibold.text-xl.tracking-tight
        config/application-name]]
-     [:a.header-link {:href (rfe/href :routes/embedding {} query-parameters)} "Einbettung"]
+     [:a.header-link {:href (rfe/href :routes/start {} query-parameters)} "Start"]
      [:div.ml-auto]
      [:> (if dark-mode? MoonIcon SunIcon)
       {:class "h-7 my-auto pr-3 cursor-pointer"
