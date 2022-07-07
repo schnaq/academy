@@ -18,6 +18,7 @@
 (s/def :settings/hide-footer boolean?)
 (s/def :settings/hide-input boolean?)
 (s/def :settings/num-rows nat-int?)
+(s/def :settings/hide-activations boolean?)
 (s/def :settings/hide-input-replies boolean?)
 
 (s/def :settings/schnaq
@@ -26,4 +27,5 @@
                    :settings/hide-footer
                    :settings/hide-input
                    :settings/num-rows
+                   :settings/hide-activations
                    :settings/hide-input-replies]))

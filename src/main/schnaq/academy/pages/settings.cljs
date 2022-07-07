@@ -69,7 +69,7 @@
       {:type :checkbox
        :checked (or hide-footer false)
        :on-change #(rf/dispatch [:settings/field :hide-footer (oget % [:target :checked])])}]
-     [:span "Verstecke Footer (Standard wenn in iFrame eingebunden)."]]))
+     [:span "Verstecke den Footer (Standard wenn in iFrame eingebunden)."]]))
 
 (defn hide-discussion-options-input []
   (let [hide-discussion-options @(rf/subscribe [:settings/field :hide-discussion-options])]
@@ -97,6 +97,15 @@
        :value (or hide-input-replies false)
        :on-change #(rf/dispatch [:settings/field :hide-input-replies (oget % [:target :checked])])}]
      [:span "Deaktiviere Antwortmöglichkeiten."]]))
+
+(defn hide-activations-input []
+  (let [hide-activations @(rf/subscribe [:settings/field :hide-activations])]
+    [:label.inline-flex.items-center
+     [:input
+      {:type :checkbox
+       :checked (or hide-activations false)
+       :on-change #(rf/dispatch [:settings/field :hide-activations (oget % [:target :checked])])}]
+     [:span "Verstecke die Aktivierungen (Wortwolke, Umfragen, ...)"]]))
 
 (defn schnaq-url-input []
   (let [schnaq-url @(rf/subscribe [:settings/schnaq-url])]
@@ -132,6 +141,7 @@
      [:div [hide-navbar-input]]
      [:div [hide-footer-input]]
      [:div [hide-discussion-options-input]]
+     [:div [hide-activations-input]]
      [:div [hide-input-input]]
      [:div [hide-input-replies-input]]]]
    [:p "Hier ist dein generierter Link zu deinem schnaq:"]
@@ -177,13 +187,15 @@
  :<- [:settings/field :hide-discussion-options]
  :<- [:settings/field :hide-navbar]
  :<- [:settings/field :hide-footer]
+ :<- [:settings/field :hide-activations]
  :<- [:settings/field :hide-input]
  :<- [:settings/field :hide-input-replies]
- (fn [[share-hash host language num-rows hide-discussion-options hide-navbar hide-footer hide-input hide-input-replies]]
+ (fn [[share-hash host language num-rows hide-discussion-options hide-navbar hide-footer hide-activations hide-input hide-input-replies]]
    (let [query-parameters {:num-rows num-rows
                            :hide-discussion-options hide-discussion-options
                            :hide-navbar hide-navbar
                            :hide-footer hide-footer
+                           :hide-activations hide-activations
                            :hide-input hide-input
                            :hide-input-replies hide-input-replies}]
      (utils/build-uri-with-query-params
