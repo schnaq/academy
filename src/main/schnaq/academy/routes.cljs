@@ -6,6 +6,7 @@
             [reitit.frontend.easy :as rfe]
             [schnaq.academy.pages.embedding :refer [embedding]]
             [schnaq.academy.pages.index :refer [index]]
+            [schnaq.academy.pages.powerpoint :refer [powerpoint]]
             [schnaq.academy.specs]
             [spec-tools.data-spec :as ds]))
 
@@ -20,8 +21,11 @@
    ["/de"
     ["" {:name :routes/start
          :views index}]
-    ["/embedding" {:name :routes/embedding
-                   :views embedding}]]])
+    ["/embedding"
+     ["" {:name :routes/embedding
+          :views embedding}]
+     ["/powerpoint" {:name :routes.embedding/powerpoint
+                     :views powerpoint}]]]])
 
 (defn on-navigate [new-match]
   (when new-match
