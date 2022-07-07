@@ -1,16 +1,9 @@
 (ns schnaq.academy.pages.index
   (:require [re-frame.core :as rf]
             [reitit.frontend.easy :as rfe]
+            [schnaq.academy.components :refer [card]]
             [schnaq.academy.pages.base :refer [base]]
             [schnaq.academy.pages.settings :refer [schnaq-url-input]]))
-
-(defn- card
-  "Build a lecture card."
-  [title body cta href]
-  [:article.p-6.max-w-sm.bg-white.rounded-lg.border.border-gray-200.shadow-md.dark:bg-gray-800.dark:border-gray-700
-   [:h3.mb-2.font-bold.tracking-tight title]
-   [:p.mb-3 body]
-   [:a {:href href} cta]])
 
 (defn- index-page []
   (let [query-parameters @(rf/subscribe [:routes/query-parameters])]

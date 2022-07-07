@@ -1,15 +1,7 @@
 (ns schnaq.academy.pages.powerpoint
-  (:require [schnaq.academy.pages.base :refer [base]]
+  (:require [schnaq.academy.components :refer [iframe]]
+            [schnaq.academy.pages.base :refer [base]]
             [schnaq.academy.pages.settings :refer [ui-settings]]))
-
-(defn- pitch []
-  [:iframe
-   {:style {:border 0}
-    :height "600px"
-    :width "100%"
-    :allowFullScreen true
-    :allow "fullscreen"
-    :src "https://pitch.com/embed/7609ace7-cab6-4886-9788-f372f5c1ee49"}])
 
 (defn- powerpoint-page []
   [base
@@ -20,7 +12,7 @@
     [ui-settings]
     [:p "Kopiere den Code in deine Powerpoint-Präsentation, um die Fragen der Teilnehmenden dort anzuzeigen."]
     [:h2 "Anleitung"]
-    [pitch]]])
+    [iframe "https://pitch.com/embed/7609ace7-cab6-4886-9788-f372f5c1ee49" "660px"]]])
 
 (defn powerpoint []
   [powerpoint-page])
