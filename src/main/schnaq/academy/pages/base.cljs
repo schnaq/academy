@@ -40,14 +40,13 @@
 (defn root
   "Root view to initialize and render the application."
   []
-  (let [current-view @(rf/subscribe [:routes/current-view])]
-    [:div
-     (when current-view
-       [current-view])]))
+  (if-let [current-view @(rf/subscribe [:routes/current-view])]
+    [current-view]
+    [:div]))
 
 (defn base [body]
   [:main
-   [:div.dark:bg-gray-700.dark:text-white
+   [:div.dark:bg-gray-700.dark:text-white.flex.flex-col.min-h-screen
     [header]
-    [:div.container.mx-auto.px-3.pt-3 body]
+    [:div.container.mx-auto.px-3.pt-3.grow body]
     [footer]]])
