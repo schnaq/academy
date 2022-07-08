@@ -8,7 +8,7 @@
     "tailwind:watch": "yarn tailwindcss -i ./resources/tailwind.css -o ./resources/public/css/compiled.css --watch",
     "tailwind:production": "yarn tailwindcss -i ./resources/tailwind.css -o ./resources/public/css/compiled.css --minify",
     "dev": "yarn run-p -l *:watch",
-    "build": "yarn shadow:production; yarn tailwind:production",
+    "build": "yarn shadow:production && yarn tailwind:production",
     "dist:zip": "zip -qr dist.zip resources/public/index.html resources/public/css/compiled.css resources/public/js/compiled/main.js"
   },
   "devDependencies": {
