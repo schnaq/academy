@@ -1,26 +1,8 @@
 name: Build
-on: 
-  push:
-    branches-ignore:
-      - "main"
-  pull_request:
-    branches-ignore:
-      - "main"
-  workflow_call:
-    branches-ignore:
-      - "main"
-  
-jobs:
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: DeLaGuardo/clojure-lint-action@master
-        continue-on-error: true
-        with:
-          clj-kondo-args: --lint src
-          github_token: ${{ secrets.GITHUB_TOKEN }}
 
+on: [workflow_call]
+
+jobs:
   build:
     runs-on: ubuntu-latest
     steps:
