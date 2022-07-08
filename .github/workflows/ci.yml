@@ -9,8 +9,8 @@ on:
       - "main"
 
 jobs:
-  build:
-    uses: ./.github/workflows/build.yml
+  # build:
+  #   uses: ./.github/workflows/build.yml
 
   lint:
     runs-on: ubuntu-latest
