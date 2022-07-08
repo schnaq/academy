@@ -33,7 +33,7 @@ jobs:
       
       - run: yarn install
       - run: yarn build
-      - run: zip -r dist.zip resources/public
+      - run: zip -qr dist.zip resources/public
 
       - name: Upload produced files
         uses: actions/upload-artifact@v3

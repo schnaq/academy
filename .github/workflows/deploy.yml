@@ -17,7 +17,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: dist
-      - run: unzip dist.zip
+      - run: unzip -qo dist.zip
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
