@@ -3,15 +3,12 @@ name: CI
 on:
   push:
     branches-ignore:
-      - "main" 
+      - "main"
   pull_request:
     branches-ignore:
       - "main"
 
 jobs:
-  # build:
-  #   uses: ./.github/workflows/build.yml
-
   lint:
     runs-on: ubuntu-latest
     steps:
