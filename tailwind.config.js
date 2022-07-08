@@ -1,4 +1,4 @@
-const defaultTheme = require('./resources/public/node_modules/tailwindcss/defaultTheme')
+const defaultTheme = require('./node_modules/tailwindcss/defaultTheme')
 
 module.exports = {
   content: ["./resources/public/js/compiled/cljs-runtime/schnaq.academy.*.js",
@@ -18,7 +18,7 @@ module.exports = {
     },
   },
   plugins: [
-    require("./resources/public/node_modules/@tailwindcss/forms"),
-    require("./resources/public/node_modules/@tailwindcss/aspect-ratio"),
+    require("./node_modules/@tailwindcss/forms"),
+    require("./node_modules/@tailwindcss/aspect-ratio"),
   ],
 }
