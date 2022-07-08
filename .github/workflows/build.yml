@@ -1,6 +1,15 @@
 name: Build
-on: [push, pull_request, workflow_call]
-
+on: 
+  push:
+    branches:
+      - "!main"
+  pull:
+    branches:
+      - "!main"
+  workflow_call:
+    branches:
+      - "!main"
+  
 jobs:
   lint:
     runs-on: ubuntu-latest
