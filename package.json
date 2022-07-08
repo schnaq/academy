@@ -8,14 +8,14 @@
     "tailwind:watch": "yarn tailwindcss -i ./resources/tailwind.css -o ./resources/public/css/compiled.css --watch",
     "tailwind:production": "yarn tailwindcss -i ./resources/tailwind.css -o ./resources/public/css/compiled.css --minify",
     "dev": "yarn run-p -l *:watch",
-    "build": "yarn shadow:production; yarn tailwind:production"
+    "build": "yarn shadow:production && yarn tailwind:production",
+    "dist:zip": "zip -qr dist.zip resources/public/index.html resources/public/css/compiled.css resources/public/js/compiled/main.js"
   },
   "devDependencies": {
     "@fontsource/poppins": "^4.5.8",
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "@tailwindcss/forms": "^0.5.2",
     "autoprefixer": "^10.4.7",
-    "highlightjs": "^9.16.2",
     "npm-run-all": "^4.1.5",
     "postcss": "^8.4.14",
     "shadow-cljs": "^2.19.5",
