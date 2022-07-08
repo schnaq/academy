@@ -22,7 +22,8 @@ jobs:
         with:
           cli: latest
       
-      - run: |
+      - name: Build CLJS->JS 
+        run: |
           yarn install
           yarn build
           yarn dist:zip
