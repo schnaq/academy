@@ -1,14 +1,14 @@
 name: Build
 on: 
   push:
-    branches:
-      - "!main"
+    branches-ignore:
+      - "main"
   pull_request:
-    branches:
-      - "!main"
+    branches-ignore:
+      - "main"
   workflow_call:
-    branches:
-      - "!main"
+    branches-ignore:
+      - "main"
   
 jobs:
   lint:
