@@ -13,13 +13,17 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
+      - uses: actions/checkout@v3
+
       - name: Download assets from previous job
         uses: actions/download-artifact@v3
         with:
           name: dist
       - run: unzip -qo dist.zip
+      
       - run: ls -ahl .
       - run: ls -ahl resources/public
+      
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
