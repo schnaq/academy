@@ -19,13 +19,10 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: dist
-      - run: unzip -qo dist.zip
-      
-      - run: ls -ahl .
-      - run: ls -ahl resources/public
+      - run: unzip -qo dist.zip -d dist
       
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           BRANCH: gh-pages
-          FOLDER: resources/public # The folder the action should deploy.
+          FOLDER: dist/resources/public # The folder the action should deploy.
