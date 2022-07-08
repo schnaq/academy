@@ -24,7 +24,6 @@ jobs:
       
       - name: Build CLJS->JS 
         run: |
-          rm -rf resources/public/node_modules
           yarn install
           yarn build
           yarn dist:zip
