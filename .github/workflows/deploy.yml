@@ -18,6 +18,7 @@ jobs:
         with:
           name: dist
       - run: unzip -qo dist.zip
+      - run: ls -ahl resources/public
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
