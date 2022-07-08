@@ -27,6 +27,8 @@ jobs:
           yarn install
           yarn build
           yarn dist:zip
+          
+      - run: ls -ahl /home/runner/work/academy/academy/resources/public/node_modules/lowlight/node_modules/highlight.js/lib/languages
 
       - name: Upload produced files
         uses: actions/upload-artifact@v3
