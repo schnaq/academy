@@ -1,12 +1,11 @@
 name: Deploy
-on: 
+on:
   push:
     branches:
       - "main"
       - "add/ci"
 
 jobs:
-
   deploy:
     runs-on: ubuntu-latest
     steps:
@@ -14,19 +13,19 @@ jobs:
 
       - uses: actions/setup-java@v3
         with:
-          distribution: 'temurin'
-          java-version: '17'
+          distribution: "temurin"
+          java-version: "17"
 
       - uses: actions/setup-node@v3
         with:
           node-version: 16
 
       - name: Setup Clojure
-        uses: DeLaGuardo/setup-clojure@7.0
+        uses: DeLaGuardo/setup-clojure@8.0
         with:
           cli: latest
-      
-      - name: Build CLJS->JS 
+
+      - name: Build CLJS->JS
         run: |
           yarn install
           yarn build
