@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: academy
+  name: academy
+  namespace: schnaq-academy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: academy
+  strategy: { }
+  template:
+    metadata:
+      labels:
+        io.kompose.service: academy
+    spec:
+      imagePullSecrets:
+        - name: gitlab-cs
+      containers:
+        - image: gitlab.cs.uni-duesseldorf.de:5001/dialogo/projects/academy
+          name: academy
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "0.5"
+            limits:
+              memory: "512Mi"
+              cpu: "1"
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: academy
+  namespace: schnaq-academy
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+  selector:
+    io.kompose.service: academy
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: academy-ingress
+  namespace: schnaq-academy
+  annotations:
+    nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
+    cert-manager.io/cluster-issuer: "letsencrypt-production"
+spec:
+  tls:
+    - hosts:
+        - academy.schnaq.com
+        - academy.schnaq.de
+      secretName: schnaq-academy-com
+  rules:
+    - host: academy.schnaq.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: academy
+                port:
+                  number: 80
