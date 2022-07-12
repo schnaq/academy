@@ -16,21 +16,27 @@
     [:iframe {:style {:width "100%" :height (str height' "px") :border 0}
               :src url-to-schnaq}]))
 
-(defn iframe-explanation
-  "Explain iframe to the user."
+(defn iframe-code
+  "Provide the prepared iframe code."
   []
   (let [html (utils/component->pretty-html [iframe])]
     [:<>
-     [:h1 "Einbettungscode für iFrames"]
-     [:p "Viele Plattformen erlauben es andere Websites in Form von iFrames einzubinden, also als ein Seite-in-Seite-Modus. Das ist auch mit schnaq möglich, sodass es nahezu überall verwendet werden kann, wo Webanwendungen verwendet werden."]
-     [:p "Konfiguriere zunächst deinen schnaq und bereite ihn für die Einbettung vor."]
-     [ui-settings]
-     [:p "Kopiere den Code in deine Webanwendung, um den schnaq wie angegeben in deine Website einzubetten."]
-     [:div {:class "w-1/3"} [iframe-height-input]]
      [utils/highlight-code {:language "html"} html]
      [:button.btn {:on-click #(utils/copy-to-clipboard! (utils/remove-unnecessary-whitespace html))} "Code kopieren"]]))
 
-(defn- iframe-preview
+(defn iframe-explanation
+  "Explain iframe to the user."
+  []
+  [:<>
+   [:h1 "Einbettungscode für iFrames"]
+   [:p "Viele Plattformen erlauben es andere Websites in Form von iFrames einzubinden, also als ein Seite-in-Seite-Modus. Das ist auch mit schnaq möglich, sodass es nahezu überall verwendet werden kann, wo Webanwendungen verwendet werden."]
+   [:p "Konfiguriere zunächst deinen schnaq und bereite ihn für die Einbettung vor."]
+   [ui-settings]
+   [:p "Kopiere den Code in deine Webanwendung, um den schnaq wie angegeben in deine Website einzubetten."]
+   [:div {:class "w-1/3"} [iframe-height-input]]
+   [iframe-code]])
+
+(defn iframe-preview
   "Enable iframe preview."
   []
   (let [visible? (r/atom false)]

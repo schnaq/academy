@@ -40,7 +40,7 @@
        :step 10
        :on-change #(rf/dispatch [:settings/field :height (oget % [:target :value])])}]]))
 
-(defn num-rows-input
+(defn- num-rows-input
   "Set number of columns in a discussion view."
   []
   (let [num-rows @(rf/subscribe [:settings/field :num-rows])]
@@ -52,7 +52,7 @@
        :value (or num-rows 2)
        :on-change #(rf/dispatch [:settings/field :num-rows (oget % [:target :value])])}]]))
 
-(defn hide-navbar-input []
+(defn- hide-navbar-input []
   (let [hide-navbar @(rf/subscribe [:settings/field :hide-navbar])]
     [:label.inline-flex.items-center
      [:input
@@ -97,7 +97,7 @@
        :on-change #(rf/dispatch [:settings/field :hide-input-replies (oget % [:target :checked])])}]
      [:span "Deaktiviere Antwortmöglichkeiten."]]))
 
-(defn hide-activations-input []
+(defn- hide-activations-input []
   (let [hide-activations @(rf/subscribe [:settings/field :hide-activations])]
     [:label.inline-flex.items-center
      [:input
