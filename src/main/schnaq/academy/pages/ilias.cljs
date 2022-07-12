@@ -1,5 +1,5 @@
 (ns schnaq.academy.pages.ilias
-  (:require [schnaq.academy.components :refer [iframe]]
+  (:require [schnaq.academy.components :refer [iframe image]]
             [schnaq.academy.pages.base :refer [base]]
             [schnaq.academy.pages.embedding :refer [iframe-code iframe-preview]]
             [schnaq.academy.pages.settings :refer [ui-settings]]))
@@ -8,8 +8,11 @@
   [base
    [:<>
     [:h1 "Einbettung in ILIAS"]
-    [:p "schnaq kann in deine ILIAS-Plattform eingebunden werden, um beispielsweise Fragen von Studierenden zwischen den Veranstaltungen zu sammeln, oder auch nuru den Studierenden einen Raum zu geben sich selbst zu helfen im Peer-to-Peer-Learning-Format. Unten findest du eine bebilderte Anleitung wie das in deiner ILIAS-Instanz funktionieren kann."]
-    [:p "Damit das funktioniert, musst du einen schnaq anlegen und kannst ihn dann hier konfigurieren."]
+    [:div.columns-1.md:columns-2
+     [:div
+      [:p "schnaq kann in deine ILIAS-Plattform eingebunden werden, um beispielsweise Fragen von Studierenden zwischen den Veranstaltungen zu sammeln, oder auch nuru den Studierenden einen Raum zu geben sich selbst zu helfen im Peer-to-Peer-Learning-Format. Unten findest du eine bebilderte Anleitung wie das in deiner ILIAS-Instanz funktionieren kann."]
+      [:p "Damit das funktioniert, musst du einen schnaq anlegen und kannst ihn dann hier konfigurieren."]]
+     [image {:src "https://s3.schnaq.com/academy/embeddings/ilias.webp"}]]
     [ui-settings]
     [iframe-code]
     [:p "Kopiere den Code als Text-Baustein in deine ILIAS-Seiten ein. Wie das geht, siehst du in der Anleitung unten."]
