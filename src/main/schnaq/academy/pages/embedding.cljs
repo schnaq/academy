@@ -1,6 +1,5 @@
 (ns schnaq.academy.pages.embedding
-  (:require [goog.string :refer [format]]
-            [re-frame.core :as rf]
+  (:require [re-frame.core :as rf]
             [reagent.core :as r]
             [schnaq.academy.config :as config]
             [schnaq.academy.pages.base :refer [base]]
@@ -14,10 +13,8 @@
   (let [height @(rf/subscribe [:settings.iframe/height])
         height' (if (= "" height) config/default-iframe-height height)
         url-to-schnaq @(rf/subscribe [:settings/schnaq-url])]
-    [:div {:style {:position :relative :overflow :hidden :width "100%" :padding-top (format "%dpx" height')}}
-     [:iframe
-      {:style {:position :absolute :width "100%" :height "100%" :top 0 :bottom 0 :left 0 :right 0}
-       :src url-to-schnaq}]]))
+    [:iframe {:style {:width "100%" :height (str height' "px") :border 0}
+              :src url-to-schnaq}]))
 
 (defn iframe-explanation
   "Explain iframe to the user."
@@ -31,7 +28,7 @@
      [:p "Kopiere den Code in deine Webanwendung, um den schnaq wie angegeben in deine Website einzubetten."]
      [:div {:class "w-1/3"} [iframe-height-input]]
      [utils/highlight-code {:language "html"} html]
-     [:button {:on-click #(utils/copy-to-clipboard! html)} "Code kopieren"]]))
+     [:button {:on-click #(utils/copy-to-clipboard! (utils/remove-unnecessary-whitespace html))} "Code kopieren"]]))
 
 (defn- iframe-preview
   "Enable iframe preview."

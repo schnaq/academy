@@ -5,7 +5,9 @@
             ["react-syntax-highlighter/dist/esm/styles/prism" :refer [darcula
                                                                       github]]
             [cljs.spec.alpha :as s]
+            [clojure.string :as str]
             [com.fulcrologic.guardrails.core :refer [=> >defn]]
+            [goog.string :refer [unescapeEntities]]
             [goog.uri.utils :as uri]
             [hodgepodge.core :refer [local-storage]]
             [oops.core :refer [oget]]
@@ -22,12 +24,14 @@
   "Copies a string to the users clipboard."
   [value]
   [(s/or :string string? :number number?) => any?]
-  (let [el (js/document.createElement "textarea")]
-    (set! (.-value el) value)
-    (.appendChild js/document.body el)
-    (.select el)
-    (js/document.execCommand "copy")
-    (.removeChild js/document.body el)))
+  (.writeText (.-clipboard js/navigator) value))
+
+(>defn remove-unnecessary-whitespace [text]
+  [string? => string?]
+  (-> text
+      (str/replace "\n" "")
+      (str/replace "  " " ")
+      unescapeEntities))
 
 (>defn component->pretty-html
   "Takes a component, converts to a string and prettifies it."
