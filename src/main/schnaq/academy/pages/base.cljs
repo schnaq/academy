@@ -12,7 +12,7 @@
     [:nav.flex.bg-blue.dark:bg-blue-dark.p-6.text-white
      [:div.flex.items-center.flex-no-shrink.mr-6.cursor-pointer
       {:on-click #(rf/dispatch [:routes/navigate :routes/start])}
-      [:img.h-8.pr-2 {:src "https://s3.schnaq.com/schnaq-common/logos/schnaqqifant_white.svg"}]
+      [:img.h-8.pr-2 {:src "https://s3.schnaq.com/schnaq-common/logos/schnaqqifant_white.webp"}]
       [:span.font-semibold.text-xl.tracking-tight
        config/application-name]]
      [:a.header-link {:href (rfe/href :routes/start {} query-parameters)} "Start"]
@@ -29,7 +29,7 @@
   [:footer
    [:nav.flex.bg-blue-dark.p-6.text-white.mt-5
     [:div.flex.items-center.flex-no-shrink.mr-6
-     [:img.h-8.pr-2 {:src "https://s3.schnaq.com/schnaq-common/logos/schnaqqifant_white.svg"}]
+     [:img.h-8.pr-2 {:src "https://s3.schnaq.com/schnaq-common/logos/schnaqqifant_white.webp"}]
      [:span.font-semibold.text-xl.tracking-tight config/application-name]]
     [:div.ml-auto]
     [:a.text-white.mr-3 {:target :_blank :href "https://schnaq.com/de/legal-note"} "Impressum"]
