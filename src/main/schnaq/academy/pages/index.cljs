@@ -3,8 +3,7 @@
             [re-frame.core :as rf]
             [reitit.frontend.easy :as rfe]
             [schnaq.academy.components :refer [card]]
-            [schnaq.academy.pages.base :refer [base]]
-            [schnaq.academy.pages.settings :refer [schnaq-url-input]]))
+            [schnaq.academy.pages.base :refer [base]]))
 
 (defn- index-page []
   (let [query-parameters @(rf/subscribe [:routes/query-parameters])]
