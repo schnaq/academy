@@ -123,8 +123,8 @@
   (let [url-to-schnaq @(rf/subscribe [:settings/schnaq-url])]
     [:<>
      [utils/highlight-code {:language "clojure"} url-to-schnaq]
-     [:button.mr-3 {:on-click #(utils/copy-to-clipboard! url-to-schnaq)} "Link kopieren"]
-     [:a {:href url-to-schnaq :target :_blank}
+     [:button.btn.mr-3 {:on-click #(utils/copy-to-clipboard! url-to-schnaq)} "Link kopieren"]
+     [:a.btn {:href url-to-schnaq :target :_blank}
       "schnaq besuchen" [:> ExternalLinkIcon {:class "h-5 inline"}]]]))
 
 (defn configured-schnaq-code
@@ -137,7 +137,6 @@
 (defn ui-settings []
   [:<>
    [:h2 "Interface Einstellungen"]
-   [:p "Um schnaq in verschiedene Web-Kontexte einzubinden (bspw. Websites, E-Learningplattformen, Powerpoint-Präsentationen, ...), kann das Interface angepasst werden. Hier können diese Einstellungen vorgenommen werden, um einen Code zu generieren, der dann in die entsprechenden Web-Bereiche verwendet zu werden."]
    [:p "Die Einstellungen sind interaktiv und finden nur bei dir im Browser statt. Wenn du den Zugangslink zu deinem schnaq hier eingibst, wird er nicht gespeichert und nur auf deinem Gerät weiterverarbeitet."]
    [schnaq-url-input]
    [:section.grid.md:grid-cols-2.gap-4.pt-3.mb-5

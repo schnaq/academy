@@ -12,8 +12,6 @@
      [:<>
       [:h1 "Willkommen in der schnaq academy"]
       [:p "Finde hier Anleitungen, Beispiele und Konfigurationen, wie du schnaq für dich verwenden kannst."]
-      [:div {:class "md:w-1/3"}
-       [schnaq-url-input]]
       [:h2 "Einbettung"]
       [:p "schnaq auf einer eigenen Plattform zu betreiben ist zwar schön, aber noch schöner ist es, wenn wir schnaq direkt zu dir auf deine Webseiten und Anwendungen bringen. Lerne hier, wie das funktionieren kann."]
       [:div.grid.md:grid-cols-3
@@ -23,10 +21,15 @@
         "Weiterlesen"
         (rfe/href :routes/embedding {} query-parameters)]
        [card
-        [:<> [:> PresentationChartBarIcon {:class "h-7 inline mr-2"}] "Powerpoint"]
+        [:a [:> PresentationChartBarIcon {:class "h-7 inline mr-2"}] "Powerpoint"]
         "Live Fragen in deinen Folien? Wir zeigen dir wie das mit Powerpoint möglich ist!"
         "Weiterlesen"
-        (rfe/href :routes.embedding/powerpoint {} query-parameters)]]]]))
+        (rfe/href :routes.embedding/powerpoint {} query-parameters)]
+       [card
+        [:<> [:img.h-10.inline.mr-2 {:src "https://s3.schnaq.com/academy/logos/ilias.webp"}] "ILIAS"]
+        "Studierenden direkt in einer Plattform sich selbst helfen lassen? Binde schnaq in deinen ILIAS-Kurs ein!"
+        "Weiterlesen"
+        (rfe/href :routes.embedding/ilias {} query-parameters)]]]]))
 
 (defn index []
   [index-page])

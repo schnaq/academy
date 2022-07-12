@@ -23,9 +23,7 @@
     @apply pt-3 pb-1;
   }
 
-  a, button {
-    @apply text-blue dark:text-white rounded-full outline p-2 my-2;
-  }
+  
   a:hover, button:hover {
     @apply underline;
   }
@@ -49,6 +47,10 @@
 }
 
 @layer components {
+  .btn {
+    @apply text-blue dark:text-white rounded-full outline p-2 my-2;
+  }
+
   .input {
     @apply rounded-lg bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue focus:border-blue block w-full p-2.5 dark:bg-gray-700 dark:border-gray-400 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue dark:focus:border-blue duration-300;
   }

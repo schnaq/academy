@@ -28,7 +28,7 @@
      [:p "Kopiere den Code in deine Webanwendung, um den schnaq wie angegeben in deine Website einzubetten."]
      [:div {:class "w-1/3"} [iframe-height-input]]
      [utils/highlight-code {:language "html"} html]
-     [:button {:on-click #(utils/copy-to-clipboard! (utils/remove-unnecessary-whitespace html))} "Code kopieren"]]))
+     [:button.btn {:on-click #(utils/copy-to-clipboard! (utils/remove-unnecessary-whitespace html))} "Code kopieren"]]))
 
 (defn- iframe-preview
   "Enable iframe preview."
@@ -38,7 +38,7 @@
       [:<>
        [:h2 "Vorschau"]
        [:p "Schau dir hier eine Vorschau zu deinem konfigurierten schnaq an. Dies ist genau der Code aus dem iFrame, den du oben konfiguriert hast."]
-       [:button {:on-click #(swap! visible? not)} (if @visible? "Vorschau verstecken" "Vorschau anzeigen")]
+       [:button.btn {:on-click #(swap! visible? not)} (if @visible? "Vorschau verstecken" "Vorschau anzeigen")]
        (when @visible?
          [iframe])])))
 
