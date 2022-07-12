@@ -48,7 +48,7 @@
 
 @layer components {
   .btn {
-    @apply text-blue dark:text-white rounded-full border p-2 my-2;
+    @apply text-blue rounded-full border border-blue dark:text-white dark:border-white py-2 px-3 my-2;
   }
 
   .input {
@@ -60,6 +60,6 @@
   }
 
   .header-link {
-    @apply p-3 mr-3 text-white border-none;
+    @apply p-3 mr-3 text-white;
   }
 }
