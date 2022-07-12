@@ -5,6 +5,7 @@
             [reitit.frontend.controllers :as rfc]
             [reitit.frontend.easy :as rfe]
             [schnaq.academy.pages.embedding :refer [embedding]]
+            [schnaq.academy.pages.ilias :refer [ilias]]
             [schnaq.academy.pages.index :refer [index]]
             [schnaq.academy.pages.powerpoint :refer [powerpoint]]
             [schnaq.academy.specs]
@@ -25,7 +26,9 @@
      ["" {:name :routes/embedding
           :views embedding}]
      ["/powerpoint" {:name :routes.embedding/powerpoint
-                     :views powerpoint}]]]])
+                     :views powerpoint}]
+     ["/ilias" {:name :routes.embedding/ilias
+                :views ilias}]]]])
 
 (defn on-navigate [new-match]
   (when new-match

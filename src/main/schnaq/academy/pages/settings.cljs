@@ -127,6 +127,13 @@
      [:a {:href url-to-schnaq :target :_blank}
       "schnaq besuchen" [:> ExternalLinkIcon {:class "h-5 inline"}]]]))
 
+(defn configured-schnaq-code
+  "Add field with the highlighted schnaq code with configured UI."
+  []
+  [:<>
+   [:p "Hier ist dein generierter Link zu deinem schnaq:"]
+   [copy-link-button]])
+
 (defn ui-settings []
   [:<>
    [:h2 "Interface Einstellungen"]
@@ -142,9 +149,7 @@
      [:div [hide-discussion-options-input]]
      [:div [hide-activations-input]]
      [:div [hide-input-input]]
-     [:div [hide-input-replies-input]]]]
-   [:p "Hier ist dein generierter Link zu deinem schnaq:"]
-   [copy-link-button]])
+     [:div [hide-input-replies-input]]]]])
 
 ;; -----------------------------------------------------------------------------
 
