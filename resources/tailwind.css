@@ -42,7 +42,7 @@
 
   @font-face {
     font-family: "Poppins";
-    src: local("Poppins"), url("public/node_modules/@fontsource/poppins/files/poppins-all-00-normal.ttf") format("ttf");
+    src: local("Poppins"), url("node_modules/@fontsource/poppins/files/poppins-all-00-normal.ttf") format("ttf");
   }
 }
 
