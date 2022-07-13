@@ -21,7 +21,7 @@
         "Weiterlesen"
         (rfe/href :routes/embedding {} query-parameters)]
        [card
-        [:a [:> PresentationChartBarIcon {:class "h-7 inline mr-2"}] "Powerpoint"]
+        [:<> [:> PresentationChartBarIcon {:class "h-7 inline mr-2"}] "Powerpoint"]
         "Live Fragen in deinen Folien? Wir zeigen dir wie das mit Powerpoint möglich ist!"
         "Weiterlesen"
         (rfe/href :routes.embedding/powerpoint {} query-parameters)]
