@@ -11,7 +11,8 @@
            :dev {:compiler-options {:closure-defines {re-frame.trace.trace-enabled? true
                                                       day8.re-frame.tracing.trace-enabled? true}}
                  :external-config {:guardrails {}}}
-           :release {:closure-defines {schnaq.academy.config/frontend-url "https://app.schnaq.com"
+           :release {:closure-defines {schnaq.academy.config/academy-url "https://academy.schnaq.com"
+                                       schnaq.academy.config/frontend-url "https://app.schnaq.com"
                                        schnaq.academy.config/default-share-hash "e8f54922-0d88-4953-8f43-ddc819d7f201"}
                      :build-options {:ns-aliases {com.fulcrologic.guardrails.core com.fulcrologic.guardrails.noop
                                                   day8.re-frame.tracing day8.re-frame.tracing-stubs}}}}}}
