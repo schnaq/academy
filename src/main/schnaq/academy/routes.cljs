@@ -17,9 +17,8 @@
        :controllers [{:parameters {:query [:url]}
                       :start (fn [{:keys [query]}]
                                (rf/dispatch [:init])
-                               (rf/dispatch [:settings/from-schnaq-url (:url query)]))}]}
-   ["/" {:controllers [{:start (fn [{:keys [query]}]
-                                 (rf/dispatch [:routes/navigate :routes/start {} query]))}]}]
+                               (rf/dispatch [:settings/from-schnaq-url (:url query)])
+                               (rf/dispatch [:routes/navigate :routes/start {} query]))}]}
    ["/de"
     ["" {:name :routes/start
          :views index}]
