@@ -9,10 +9,10 @@
   "Define the academy header."
   []
   (let [dark-mode? @(rf/subscribe [:dark-mode?])
-        query-parameters @(rf/subscribe [:routes/query-parameters])]
+        query-parameters @(rf/subscribe [:navigation/query-parameters])]
     [:nav.flex.bg-blue.dark:bg-blue-dark.p-6.text-white
      [:div.flex.items-center.flex-no-shrink.mr-6.cursor-pointer
-      {:on-click #(rf/dispatch [:routes/navigate :routes/start])}
+      {:on-click #(rf/dispatch [:navigation/navigate :routes/start])}
       [:img.h-8.pr-2 {:src "https://s3.schnaq.com/schnaq-common/logos/schnaqqifant_white.webp"}]
       [:span.font-semibold.text-xl.tracking-tight
        config/application-name]]
@@ -41,7 +41,7 @@
 (defn root
   "Root view to initialize and render the application."
   []
-  (if-let [current-view @(rf/subscribe [:routes/current-view])]
+  (if-let [current-view @(rf/subscribe [:navigation/current-view])]
     [current-view]
     [:div]))
 

@@ -3,8 +3,8 @@
             [goog.string.format] ;; required for goog.string. We need to require it once in our project.
             [re-frame.core :as rf]
             [reagent.dom]
+            [schnaq.academy.navigation :as navigation]
             [schnaq.academy.pages.base :as base]
-            [schnaq.academy.routes :as routes]
             [schnaq.academy.utils]))
 
 (defn- render []
@@ -12,7 +12,7 @@
 
 (defn init
   []
-  (routes/init-routes!)
+  (navigation/init-routes!)
   (render))
 
 (defn- ^:dev/after-load clear-cache-and-render!
@@ -21,7 +21,7 @@
   annotation."
   []
   (rf/clear-subscription-cache!)
-  (routes/init-routes!)
+  (navigation/init-routes!)
   (render))
 
 (rf/reg-event-fx
