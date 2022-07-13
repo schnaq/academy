@@ -13,7 +13,7 @@
       [:p "Finde hier Anleitungen, Beispiele und Konfigurationen, wie du schnaq für dich verwenden kannst."]
       [:h2 "Einbettung"]
       [:p "schnaq auf einer eigenen Plattform zu betreiben ist zwar schön, aber noch schöner ist es, wenn wir schnaq direkt zu dir auf deine Webseiten und Anwendungen bringen. Lerne hier, wie das funktionieren kann."]
-      [:div.grid.md:grid-cols-3
+      [:div.grid.md:grid-cols-2.xl:grid-cols-3.gap-4
        [card
         [:<> [:> GlobeIcon {:class "h-7 inline mr-2"}] "iFrames"]
         "schnaq kann in beliebige Webkontexte per iFrame eingebunden werden."
@@ -28,7 +28,12 @@
         [:<> [:img.h-10.inline.mr-2 {:src "https://s3.schnaq.com/academy/logos/ilias.webp"}] "ILIAS"]
         "Studierenden direkt in einer Plattform sich selbst helfen lassen? Binde schnaq in deinen ILIAS-Kurs ein!"
         "Weiterlesen"
-        (rfe/href :routes.embedding/ilias {} query-parameters)]]]]))
+        (rfe/href :routes.embedding/ilias {} query-parameters)]
+       [card
+        [:<> [:img.h-10.inline.mr-2 {:src "https://s3.schnaq.com/academy/logos/moodle.svg"}] "Moodle"]
+        "Nutze schnaq direkt in einer der größen Lernmanagementsysteme der Welt!"
+        "Weiterlesen"
+        (rfe/href :routes.embedding/moodle {} query-parameters)]]]]))
 
 (defn index []
   [index-page])
