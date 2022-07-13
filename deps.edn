@@ -6,9 +6,9 @@
         funcool/hodgepodge {:mvn/version "0.1.4"}
         metosin/reitit {:mvn/version "0.5.18"}
         org.clojure/clojurescript {:mvn/version "1.11.60"}
-        org.clojure/data.xml {:mvn/version "0.2.0-alpha6"}
         reagent/reagent {:mvn/version "1.1.1"}
         re-frame/re-frame {:mvn/version "1.2.0"}
+        sitemap/sitemap {:mvn/version "0.4.0"}
         thheller/shadow-cljs {:mvn/version "2.19.5"}}
  :aliases
  {:dev {:extra-deps {binaryage/devtools {:mvn/version "1.0.6"}
