@@ -2,7 +2,8 @@
   (:require ["@heroicons/react/solid" :refer [MoonIcon SunIcon]]
             [re-frame.core :as rf]
             [reitit.frontend.easy :as rfe]
-            [schnaq.academy.config :as config]))
+            [schnaq.academy.config :as config]
+            [schnaq.academy.utils :as utils]))
 
 (defn- header
   "Define the academy header."
@@ -44,7 +45,9 @@
     [current-view]
     [:div]))
 
-(defn base [body]
+(defn base [{:page/keys [title description]} body]
+  (utils/set-website-title! title)
+  (utils/set-website-description! description)
   [:main
    [:div.dark:bg-gray-700.dark:text-white.flex.flex-col.min-h-screen
     [header]

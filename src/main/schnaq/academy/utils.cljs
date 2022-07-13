@@ -6,13 +6,14 @@
                                                                       github]]
             [cljs.spec.alpha :as s]
             [clojure.string :as str]
-            [com.fulcrologic.guardrails.core :refer [=> >defn]]
-            [goog.string :refer [unescapeEntities]]
+            [com.fulcrologic.guardrails.core :refer [=> >defn ?]]
+            [goog.string :refer [format unescapeEntities]]
             [goog.uri.utils :as uri]
             [hodgepodge.core :refer [local-storage]]
-            [oops.core :refer [oget]]
+            [oops.core :refer [oget oset!]]
             [re-frame.core :as rf]
-            [reagent.dom.server :refer [render-to-string]]))
+            [reagent.dom.server :refer [render-to-string]]
+            [schnaq.academy.config :as config]))
 
 (>defn build-uri-with-query-params
   "Takes a URL and adds the parameters as query parameters."
@@ -62,6 +63,26 @@
   (or (:dark-mode? local-storage)
       (and (nil? (:dark-mode? local-storage))
            (.-matches (.matchMedia js/window "(prefers-color-scheme: dark)")))))
+
+;; -----------------------------------------------------------------------------
+
+(>defn set-website-title!
+  "Set a document's website title."
+  [title]
+  [(? string?) :ret any?]
+  (when title
+    (let [new-title (format "%s – %s" title config/application-name)]
+      (oset! js/document [:title] new-title))))
+
+(>defn set-website-description!
+  "Set a document's website meta-description."
+  [description]
+  [(? string?) :ret any?]
+  (when description
+    (when-let [selector (.querySelector js/document "meta[name='description']")]
+      (.setAttribute selector "content" description))
+    (when-let [og-selector (.querySelector js/document "meta[name='og:description']")]
+      (.setAttribute og-selector "content" description))))
 
 ;; -----------------------------------------------------------------------------
 

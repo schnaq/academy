@@ -6,7 +6,8 @@
                                                    ui-settings]]))
 
 (defn- ilias-page []
-  [base
+  [base {:page/title "Einbettung in ILIAS"
+         :page/description "Lerne hier, wie du schnaq in deinen ILIAS-Kurs einbinden kannst."}
    [:<>
     [:h1 "Einbettung in ILIAS"]
     [:div.columns-1.md:columns-2

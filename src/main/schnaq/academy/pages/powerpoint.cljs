@@ -6,7 +6,8 @@
                                                    ui-settings]]))
 
 (defn- powerpoint-page []
-  [base
+  [base {:page/title "Einbettung in Powerpoint"
+         :page/description "Schaue dir an, wie du Fragen direkt in deiner Präsentation anzeigen lassen kannst."}
    [:<>
     [:h1 "Einbettung in Powerpoint"]
     [:div.columns-1.md:columns-2

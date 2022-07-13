@@ -6,7 +6,8 @@
                                                    ui-settings]]))
 
 (defn- moodle-page []
-  [base
+  [base {:page/title "Einbettung in Moodle"
+         :page/description "Lerne hier wie du schnaq in deinem Moodle-Kurs verwenden kannst."}
    [:<>
     [:h1 "Einbettung in Moodle"]
     [:div.columns-1.md:columns-2

@@ -49,7 +49,8 @@
          [iframe])])))
 
 (defn- embedding-page []
-  [base
+  [base {:page/title "Einbettung per iframe"
+         :page/description "Lerne hier, wie du schnaq per iframe in deine Webseite einbinden kannst."}
    [:<>
     [iframe-explanation]
     [iframe-preview]]])

@@ -7,7 +7,8 @@
 
 (defn- index-page []
   (let [query-parameters @(rf/subscribe [:routes/query-parameters])]
-    [base
+    [base {:page/title "Start"
+           :page/description "Lerne hier in der academy, wie du schnaq verwenden und einbinden kannst."}
      [:<>
       [:h1 "Willkommen in der schnaq academy"]
       [:p "Finde hier Anleitungen, Beispiele und Konfigurationen, wie du schnaq für dich verwenden kannst."]
