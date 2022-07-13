@@ -1,9 +1,14 @@
 (ns schnaq.academy.routes
-  (:require [re-frame.core :as rf]
+  (:require [cljs.spec.alpha :as s]
+            [com.fulcrologic.guardrails.core :refer [>defn =>]]
+            [goog.string :refer [format]]
+            [re-frame.core :as rf]
             [reitit.coercion.spec :as rss]
+            [reitit.core :as rc]
             [reitit.frontend :as reitit-frontend]
             [reitit.frontend.controllers :as rfc]
             [reitit.frontend.easy :as rfe]
+            [schnaq.academy.config :as config]
             [schnaq.academy.pages.embedding :refer [embedding]]
             [schnaq.academy.pages.ilias :refer [ilias]]
             [schnaq.academy.pages.index :refer [index]]
@@ -31,6 +36,23 @@
                 :views ilias}]
      ["/moodle" {:name :routes.embedding/moodle
                  :views moodle}]]]])
+
+(defn all-routes
+  "Read all route-paths from the router."
+  [router]
+  (->> router rc/routes (into {}) keys))
+
+(>defn absolute-urls
+  "All absolute urls for this application."
+  [routes]
+  [(s/coll-of string?) => (s/coll-of string?)]
+  (map #(format "%s%s" config/academy-url %) routes))
+
+(comment
+
+  (absolute-urls (all-routes (reitit-frontend/router routes)))
+
+  nil)
 
 (defn on-navigate [new-match]
   (when new-match
