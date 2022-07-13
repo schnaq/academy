@@ -1,5 +1,6 @@
 node_modules/
 resources/public/js/compiled
+sitemap.xml
 
 /target
 /checkouts

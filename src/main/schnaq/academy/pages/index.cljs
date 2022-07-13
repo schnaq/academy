@@ -6,7 +6,7 @@
             [schnaq.academy.pages.base :refer [base]]))
 
 (defn- index-page []
-  (let [query-parameters @(rf/subscribe [:routes/query-parameters])]
+  (let [query-parameters @(rf/subscribe [:navigation/query-parameters])]
     [base {:page/title "Start"
            :page/description "Lerne hier in der academy, wie du schnaq verwenden und einbinden kannst."}
      [:<>

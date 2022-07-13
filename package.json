@@ -4,12 +4,12 @@
   "private": true,
   "scripts": {
     "shadow:watch": "yarn shadow-cljs watch frontend",
+    "shadow:sitemap": "ACADEMY_URL=https://academy.schnaq.com yarn shadow-cljs run schnaq.academy.sitemap/generate-sitemap!",
     "shadow:production": "yarn shadow-cljs release app",
     "tailwind:watch": "yarn tailwindcss -i ./resources/tailwind.css -o ./resources/public/css/compiled.css --watch",
     "tailwind:production": "yarn tailwindcss -i ./resources/tailwind.css -o ./resources/public/css/compiled.css --minify",
     "dev": "yarn run-p -l *:watch",
-    "build": "yarn shadow:production && yarn tailwind:production",
-    "dist:zip": "zip -qr dist.zip resources/public/index.html resources/public/css/compiled.css resources/public/js/compiled/main.js"
+    "build": "yarn shadow:production && yarn tailwind:production"
   },
   "devDependencies": {
     "@fontsource/poppins": "^4.5.8",
