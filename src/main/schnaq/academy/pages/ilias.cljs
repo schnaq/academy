@@ -2,7 +2,8 @@
   (:require [schnaq.academy.components :refer [iframe image]]
             [schnaq.academy.pages.base :refer [base]]
             [schnaq.academy.pages.embedding :refer [iframe-code iframe-preview]]
-            [schnaq.academy.pages.settings :refer [ui-settings]]))
+            [schnaq.academy.pages.settings :refer [iframe-height-input
+                                                   ui-settings]]))
 
 (defn- ilias-page []
   [base
@@ -14,6 +15,7 @@
       [:p "Damit das funktioniert, musst du einen schnaq anlegen und kannst ihn dann hier konfigurieren."]]
      [image {:src "https://s3.schnaq.com/academy/embeddings/ilias.webp"}]]
     [ui-settings]
+    [:div {:class "md:w-1/3"} [iframe-height-input]]
     [iframe-code]
     [:p "Kopiere den Code als Text-Baustein in deine ILIAS-Seiten ein. Wie das geht, siehst du in der Anleitung unten."]
     [:h2 "Anleitung"]
