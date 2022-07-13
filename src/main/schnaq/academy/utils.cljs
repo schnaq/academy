@@ -1,9 +1,9 @@
 (ns schnaq.academy.utils
   (:require ["prettier/parser-html" :as parserHtml]
             ["prettier/standalone" :as prettier]
-            ["react-syntax-highlighter" :refer [Prism]]
-            ["react-syntax-highlighter/dist/esm/styles/prism" :refer [darcula
-                                                                      github]]
+            ["react-syntax-highlighter$default" :as SyntaxHighlighter]
+            ["react-syntax-highlighter/dist/esm/styles/hljs" :refer [darcula
+                                                                     github]]
             [cljs.spec.alpha :as s]
             [clojure.string :as str]
             [com.fulcrologic.guardrails.core :refer [=> >defn ?]]
@@ -54,7 +54,7 @@
   "Highlight the provided code and provide buttons to copy the content."
   [{:keys [language]} code]
   (let [dark-mode? @(rf/subscribe [:dark-mode?])]
-    [:> Prism {:language language :style (if dark-mode? darcula github)}
+    [:> SyntaxHighlighter {:language language :style (if dark-mode? darcula github)}
      code]))
 
 (defn- dark-mode?
