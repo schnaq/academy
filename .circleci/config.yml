@@ -9,6 +9,7 @@ jobs:
       - checkout
       - run: yarn install
       - run: yarn shadow:sitemap
+      - run: head node_modules/lowlight/node_modules/highlight.js/lib/languages/isbl.js
       - run: yarn build
 # # Orchestrate our job run sequence
 # workflows:
