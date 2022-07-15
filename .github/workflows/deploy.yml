@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - "main"
-      - "add/ci"
 
 jobs:
   deploy:
@@ -28,6 +27,7 @@ jobs:
       - name: Build CLJS->JS
         run: |
           yarn install
+          yarn shadow:sitemap
           yarn build
 
       - name: Deploy 🚀

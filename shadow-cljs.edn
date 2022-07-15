@@ -4,7 +4,6 @@
  :builds {:app
           {:target :browser
            :modules {:main {:init-fn schnaq.academy.core/init}}
-           :js-options {:entry-keys ["module" "browser" "main"]}
            :output-dir "resources/public/js/compiled"
            :asset-path "/js/compiled"
            :devtools {:preloads [devtools.preload day8.re-frame-10x.preload]}
