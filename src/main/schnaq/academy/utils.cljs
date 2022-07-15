@@ -1,9 +1,10 @@
 (ns schnaq.academy.utils
   (:require ["prettier/parser-html" :as parserHtml]
             ["prettier/standalone" :as prettier]
-            ["react-syntax-highlighter" :refer [Prism]]
-            ["react-syntax-highlighter/dist/esm/styles/prism" :refer [darcula
-                                                                      github]]
+            ["react-syntax-highlighter/dist/esm/languages/prism/clojure$default" :as clojure-prism]
+            ["react-syntax-highlighter/dist/esm/prism-light.js$default" :as SyntaxHighlighter]
+            ["react-syntax-highlighter/dist/esm/styles/prism/material-oceanic$default" :as dark-theme]
+            ["react-syntax-highlighter/dist/esm/styles/prism/one-light$default" :as light-theme]
             [cljs.spec.alpha :as s]
             [clojure.string :as str]
             [com.fulcrologic.guardrails.core :refer [=> >defn ?]]
@@ -14,6 +15,8 @@
             [re-frame.core :as rf]
             [reagent.dom.server :refer [render-to-string]]
             [schnaq.academy.config :as config]))
+
+(.registerLanguage SyntaxHighlighter "clojure" clojure-prism)
 
 (>defn build-uri-with-query-params
   "Takes a URL and adds the parameters as query parameters."
@@ -54,7 +57,7 @@
   "Highlight the provided code and provide buttons to copy the content."
   [{:keys [language]} code]
   (let [dark-mode? @(rf/subscribe [:dark-mode?])]
-    [:> Prism {:language language :style (if dark-mode? darcula github)}
+    [:> SyntaxHighlighter {:language language :style (if dark-mode? dark-theme light-theme)}
      code]))
 
 (defn- dark-mode?
