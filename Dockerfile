@@ -1,4 +1,4 @@
-FROM clojure:openjdk-17-tools-deps-bullseye AS shadow-build
+FROM clojure:temurin-17-alpine AS shadow-build
 
 WORKDIR /code
 
