@@ -2,11 +2,8 @@ FROM clojure:temurin-17-alpine AS shadow-build
 
 WORKDIR /code
 
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
-    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
-    apt update && \
-    apt install -y yarn && \
-    yarn global add sass
+RUN apk add --no-cache yarn && \
+  yarn global add sass
 
 # Cache and install JavaScript dependencies
 COPY package.json .
@@ -19,7 +16,7 @@ RUN clojure -P -M:frontend
 COPY . .
 
 RUN yarn shadow:sitemap && \
-    yarn build
+  yarn build
 
 # ------------------------------------------------------------------------------
 
