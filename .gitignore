@@ -27,3 +27,4 @@ pom.xml.asc
 .calva/output-window/output.calva-repl
 
 compiled.css
+.vercel/
